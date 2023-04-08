@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Let'z Shoppe</title>
+    <title>Zac Fashion</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -101,7 +101,7 @@ https://templatemo.com/tm-559-zay-shop
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{ route('shop.products') }}">All</a></li>
                                     @foreach ($categories as $category)
-                                        <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{ $category->category_name }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -117,7 +117,7 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                                 <ul class="dropdown-menu">
                                     @foreach ($vendors as $vendor)
-                                        <li><a class="dropdown-item" href="{{ route('shop.products', $vendor->id) }}">{{ $vendor->name }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('shop.products', $vendor->id) }}">{{  Str::ucfirst($vendor->name)  }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -289,7 +289,7 @@ https://templatemo.com/tm-559-zay-shop
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         @foreach ($categories as $category)
-                            <li><a class="text-decoration-none" href="">{{$category->category_name}}</a></li>
+                            <li><a class="text-decoration-none" href="">{{ Str::ucfirst($category->category_name) }}</a></li>
                         @endforeach
 
                         {{-- <li><a class="text-decoration-none" href="#">Luxury</a></li>

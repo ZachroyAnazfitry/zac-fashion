@@ -90,7 +90,7 @@
                             </div>
                            
                             <div class="card-body">
-                                <a href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}" class="h3 text-decoration-none">{{$category->category_name}}</a>
+                                <a href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}" class="h3 text-decoration-none">{{ Str::ucfirst($category->category_name) }}</a>
                                 
                                 <h6>By:</h6>
                                 @if ($product->vendor_id == NULL)
