@@ -14,14 +14,14 @@
 {{-- message on vendor status --}}
 @if ($status === 'active')
     <div class="alert alert-success alert-dismissible fade show" role="alert" style="color: black">
-      <strong>Your account has been activated!</strong> You are free to sell your products.
+      <strong>Your account has been activated!</strong> You are now free to sell your products.
       <button style="color: black" type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div><br>
     
 @else
 
     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="color: white">
-      <strong>Your account is inactive!</strong> Please wait for admin to approve <em>asap.</em>
+      <strong>Your account is inactive!</strong> Please wait for admin to approve <em>asap.</em><br> Meanwhile, please complete your shop profile.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div><br>
     

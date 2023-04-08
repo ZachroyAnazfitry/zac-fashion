@@ -100,7 +100,7 @@
                     <table id="dataTable" class="table table-striped align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th>Serial No.</th>
+                                <th>No.</th>
                                 <th>Brand Name</th>
                                 <th>Brand Image</th>
                                 <th>Action</th>
@@ -111,7 +111,7 @@
                             @foreach ($brands as $brand)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="text-uppercase">{{ $brand->brand_name }}</td>
+                                    <td class="text-capitalize">{{ $brand->brand_name }}</td>
                                     <td><img src="{{ asset($brand->brand_image) }}" alt="" style="width: 70px; height:40px"></td>
                                     <td>
                                         <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-info">Edit</a>

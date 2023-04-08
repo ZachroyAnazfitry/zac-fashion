@@ -38,7 +38,7 @@
                <table id="dataTable" class="table table-striped align-items-center mb-0">
                    <thead>
                        <tr>
-                           <th>Serial No.</th>
+                           <th>No.</th>
                            <th >Product Category Name</th>
                            <th>Product Category Image</th>
                            <th>Action</th>
@@ -49,7 +49,7 @@
                        @foreach ($categories as $category)
                            <tr>
                                <td>{{ $loop->iteration }}</td>
-                               <td class="text-uppercase">{{ $category->category_name }}</td>
+                               <td class="text-capitalize">{{ $category->category_name }}</td>
                                <td><img src="{{ asset($category->category_image) }}" alt="" style="width: 70px; height:40px"></td>
                                <td>
                                    <a href="{{ route('category.edit', $category->id ) }}" class="btn btn-info">Edit</a>

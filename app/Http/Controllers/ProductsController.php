@@ -50,7 +50,7 @@ class ProductsController extends Controller
 
         // insert data into 2 different tables
         // first table - Products
-        $products = Products::insertGetID([
+        $products = Products::create([
             'brands_id' =>$request->brands_id,
             'category_id' =>$request->category_id,
             'sub_category_id' =>$request->sub_category_id,
@@ -78,8 +78,8 @@ class ProductsController extends Controller
         // second table - store thumbnails(multiple images)
 
         // Retrieve the product id from the query builder instance
-        $product = $products->first();
-        $product_id = $product->id;
+        // $product = $products->find();
+        // $products_id = $products->find($products);
 
         $thumbnails = $request->file('thumbnails');
         foreach ($thumbnails as $thumbnail) {
@@ -92,11 +92,13 @@ class ProductsController extends Controller
             // insert data
             ProductsImages::insert([
                 // save product_id variable above
-                'products_id' => $product_id,
+                'products_id' => $products->id,
                 'products_photo' => $upload_thumbnails,
                 'created_at' => Carbon::now(),
             ]);
         }
+
+        // dd($thumbnails);
 
         // session
         session()->flash('success', 'New products details has been added!');
@@ -164,6 +166,34 @@ class ProductsController extends Controller
         // session message
         session()->flash('success', 'Products updated!');
         return redirect()->route('products.manage');        
+    }
+
+    public function updateProductsImages(Request $request)
+    {
+       $products_image = $request->id;
+       $oldImage_id = $request->id;
+
+       $products_picture = $request->file('picture');
+       // create unique id with its own products_picture extension(jpeg,png)
+       $products_picture_generated = hexdec(uniqid()).'.'.$products_picture->getClientOriginalExtension();
+       // resize products_picture by calling products_picture intervention package
+       Image::make($products_picture)->resize(600,800)->save('upload/products/picture/'.$products_picture_generated);
+       $latest_picture = 'upload/products/picture/'.$products_picture_generated; 
+
+        //    condition
+        if (file_exists($oldImage_id)) {
+            unlink($oldImage_id);
+         }
+
+         Products::findOrFail($products_image)->update([
+            'picture' => $latest_picture,
+            'updated_at' => Carbon::now(),
+           
+        ]);
+
+           // alert
+        session()->flash('success', 'Products thumbnails updated!');
+        return back();
     }
 
     public function inactiveProducts($id)

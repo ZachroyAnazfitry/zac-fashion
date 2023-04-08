@@ -51,7 +51,7 @@
                       {{-- <option selected disabled>{{ $brand->brand_name}}</option> --}}
 
                       @foreach ($brands as $brand)
-                        <option selected value="{{ $brand->id }}">{{ $brand->brand_name}}</option>    
+                        <option selected value="{{ $brand->id }}">{{ Str::ucfirst($brand->brand_name)  }}</option>    
                       @endforeach
                       
                     </select>
@@ -72,7 +72,7 @@
                       {{-- <option selected disabled>Select the Categories</option> --}}
 
                       @foreach ($categories as $category)
-                      <option value="{{$category->id}}">{{ $category->category_name}}</option>    
+                      <option value="{{$category->id}}">{{  Str::ucfirst($category->category_name) }}</option>    
                       @endforeach
                       
                     </select>
@@ -311,7 +311,9 @@
           @else 
 
           <form action="{{ route('products.update.images', $products->id) }}" method="post" enctype="multipart/form-data">
+            @method('PUT')
             @csrf
+
             <input type="hidden" name="id" value="{{$products->id}}" >
             <input type="hidden" name="old_img" value="{{$products->id}}" >
               
@@ -320,14 +322,14 @@
             <div class="mb-3">
               @if (isset($see_products))
               @else
-                <label for="formFile" class="form-label" style="text-align: center">New Image</label>
+                <label for="formFile" class="form-label" style="text-align: center">Change your current products thumbnails</label>
                 <input class="form-control" type="file" name="picture" id="formFile" style="border: 2px solid black;">
               @endif
             </div>
 
             {{-- display image --}}
             <div class="mb-3">
-              <label for="formFile" class="form-label" style="text-align: center">Current Products Icon</label>
+              {{-- <label for="formFile" class="form-label" style="text-align: center">Current Products Image</label> --}}
               @if (isset($see_products))
                 <img src="{{ asset($see_products->picture) }}" alt="" class="form-control" style="width: 100px; height:100px">
               @else

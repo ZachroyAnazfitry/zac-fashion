@@ -22,7 +22,7 @@
         @if ($status == 'inactive')
 
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-danger" href="./pages/dashboard.html">
+          <a class="nav-link text-white active bg-gradient-danger" href="{{ route('vendor.dashboard') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -82,14 +82,14 @@
             <span class="nav-link-text ms-1">Change Password</span>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link text-white " href="./pages/sign-up.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">assignment</i>
             </div>
             <span class="nav-link-text ms-1">Sign Up</span>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </div>
     {{-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
