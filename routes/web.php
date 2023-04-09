@@ -78,6 +78,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/products/edit/{id}', 'editProducts')->name('products.edit');
         Route::put('/products/update/{id}', 'updateProducts')->name('products.update');
         Route::put('/products/update/images/{id}', 'updateProductsImages')->name('products.update.images');
+        Route::put('/products/update/multi/images/{id}', 'updateProductsMultiImages')->name('products.update.multi.images');
         Route::get('/products/inactive/{id}', 'inactiveProducts')->name('products.inactive');
         Route::get('/products/active/{id}', 'activeProducts')->name('products.active');
         Route::get('/products/delete/{id}', 'deleteProducts')->name('products.delete');

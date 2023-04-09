@@ -321,6 +321,8 @@
           
             <div class="mb-3">
               @if (isset($see_products))
+              <label for="formFile" class="form-label" style="text-align: center">Your current products thumbnails</label>
+
               @else
                 <label for="formFile" class="form-label" style="text-align: center">Change your current products thumbnails</label>
                 <input class="form-control" type="file" name="picture" id="formFile" style="border: 2px solid black;">
@@ -347,6 +349,100 @@
             </a>
 
           </form>
+        </div>
+      </div>
+
+      {{-- multiple images --}}
+      <div class="card" style="margin: 10px 0 10px 0">
+        <div class="card-body">
+          @if (isset($see_products))
+              {{-- no action --}}
+          @else 
+
+         
+
+            <input type="hidden" name="id" value="{{$products->id}}" >
+              
+          @endif
+          
+            <div class="mb-3">
+              @if (isset($see_products))
+              <label for="formFile" class="form-label" style="text-align: center">Your current products images</label>
+
+              @else
+                <label for="formFile" class="form-label" style="text-align: center">Change your  products images</label>
+              @endif
+            </div>
+
+            {{-- display image --}}
+            <div class="mb-3">
+              {{-- <label for="formFile" class="form-label" style="text-align: center">Current Products Image</label> --}}
+              @if (isset($see_products))
+                <table class="table">
+                  <thead>
+                      <tr>
+                          <th class="text-center">#</th>
+                          <th>Current Image</th>
+                        
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($multi_images as $multi)
+                        <tr>
+                          <td class="text-center">{{ $loop->iteration }}</td>
+                          <td><img src="{{ asset($multi->products_photo) }}" alt="" style="width: 70px; height:40px"></td>
+                        </tr>
+                    @endforeach                    
+                      
+                  </tbody>
+                </table>  
+                @else
+              <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Current Image</th>
+                        <th>Change Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <form action="{{ route('products.update.multi.images', $products->id) }}" method="post" enctype="multipart/form-data">
+                    @method('PUT')
+                    @csrf
+                  @foreach ($multi_images as $multi)
+                      <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td><img src="{{ asset($multi->products_photo) }}" alt="" style="width: 70px; height:40px"></td>
+                        <td><input class="form-control" type="file" name="products_photo[{{$multi->id}}]" id="formFile" style="border: 2px solid black;"></td>
+                        <td class="td-actions text-right">
+                          <button type="submit" rel="tooltip" class="btn btn-success btn-round">
+                            {{-- <i class="material-icons">edit</i> --}}
+                            Save changes
+                          </button>
+                          <a href="#"><button type="button" rel="tooltip" class="btn btn-danger">
+                            <i class="material-icons">delete</i>
+                              </button>
+                          </a>
+                        </td>
+                      </tr>
+                  @endforeach
+                    </form>
+                </tbody>
+              </table>
+              @endif
+            </div>
+
+            {{-- button --}}
+            <a href="{{ route('products.manage') }}"><button type="button" class="btn btn-info">Back</button>
+              @if (isset($see_products))
+                  
+              @else
+                {{-- <button type="submit" class="btn btn-success">Save changes</button> --}}
+              @endif
+            </a>
+
+         
         </div>
       </div>
   </div>

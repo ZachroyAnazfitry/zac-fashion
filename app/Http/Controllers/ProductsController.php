@@ -116,9 +116,11 @@ class ProductsController extends Controller
 
         // get active vendor information
         $activeVendor = User::where('status', 'active')->where('role', 'vendor')->latest()->get();
+        $multi_images = ProductsImages::where('products_id',$id)->get();
+
 
         $see_products = Products::findOrFail($id);
-        return view('admin.products.editsee-products', compact('see_products','brands','categories','activeVendor'));
+        return view('admin.products.editsee-products', compact('see_products','brands','categories','activeVendor','multi_images'));
     }
 
     public function editProducts($id)
@@ -130,8 +132,11 @@ class ProductsController extends Controller
         // get active vendor information
         $activeVendor = User::where('status', 'active')->where('role', 'vendor')->latest()->get();
 
+        // get data from multiple images
+        $multi_images = ProductsImages::where('products_id',$id)->get();
+
         $products = Products::findOrFail($id);
-        return view('admin.products.editsee-products', compact('products','brands','categories','activeVendor'));
+        return view('admin.products.editsee-products', compact('products','brands','categories','activeVendor','multi_images'));
     }
 
     public function updateProducts(Request $request)
@@ -193,6 +198,31 @@ class ProductsController extends Controller
 
            // alert
         session()->flash('success', 'Products thumbnails updated!');
+        return back();
+    }
+
+    public function updateProductsMultiImages(Request $request)
+    {
+       $products_multi_images = $request->products_photo;
+       foreach ($products_multi_images as $id => $img) {
+        $imgDel = ProductsImages::findOrFail($id);
+        unlink($imgDel->products_photo);
+
+        // from storing multiple images
+         // create unique id with its own image extension(jpeg,png)
+         $thumbnail_generated = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+         // resize img by calling image intervention package
+         Image::make($img)->resize(900,900)->save('upload/products/thumbnails/'.$thumbnail_generated);
+         $upload_thumbnails = 'upload/products/thumbnails/'.$thumbnail_generated; 
+
+         ProductsImages::where('id',$id)->update([
+            'products_photos' => $upload_thumbnails,
+            'updated_at' => Carbon::now(),
+         ]);
+       }
+
+           // alert
+        session()->flash('success', 'Products images updated!');
         return back();
     }
 
