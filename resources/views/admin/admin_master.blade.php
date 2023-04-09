@@ -403,7 +403,9 @@
   {{-- datatable jquery --}}
   <script>
     $(document).ready(function () {
-    $('#dataTable').DataTable();
+    $('#dataTable').DataTable({
+      autoWidth: true,
+    });
   });
   </script>
 

@@ -89,7 +89,7 @@
                                {{-- applied others design instead of words, use icons from font awesome --}}
                                <a href="{{ route('products.see', $product->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this products details"><i class="fa-solid fa-eye"></i></a>
                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit this products"><i class="fa-solid fa-pen-to-square"></i></a>
-                               <a href="{{ route('products.delete', $product->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit this products"><i class="fa-solid fas fa-trash"></i></a>
+                               <a href="{{ route('products.delete', $product->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete this products"><i class="fa-solid fas fa-trash"></i></a>
                                {{-- <a href="" type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove this products"><i class="fas fa-trash"></i></a> --}}
                                <!-- Button trigger modal -->
                                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">

@@ -102,7 +102,7 @@
               <div class="mb-3 mt-3">
                 <label for="exampleFormControlInput1" class="form-label">Products Size</label>
                 <select class="form-select text-center" style="border: 2px solid black" name="size" aria-label="Default select example" required>
-                  <option selected disabled>Select the Brands</option>
+                  <option selected disabled>Select the Size</option>
                   <option value="1">S</option>
                   <option value="2">M</option>
                   <option value="3">L</option>
