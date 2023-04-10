@@ -84,13 +84,12 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-
                             {{-- display Vendors from User table --}}
                             @php
                                 $categories = App\Models\Category::orderBy('category_name', 'ASC')->get();
@@ -99,6 +98,7 @@ https://templatemo.com/tm-559-zay-shop
                             <div class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                                 <ul class="dropdown-menu">
+                                    {{-- for All category --}}
                                     <li><a class="dropdown-item" href="{{ route('shop.products') }}">All</a></li>
                                     @foreach ($categories as $category)
                                         <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}</a>

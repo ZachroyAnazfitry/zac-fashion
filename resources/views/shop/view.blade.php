@@ -121,9 +121,6 @@
                                 <p class="text-center mb-0">$250.00</p> --}}
                             </div>
                         </div>
-                            
-                        
-                        
                     </div>
 
                   @endforeach
