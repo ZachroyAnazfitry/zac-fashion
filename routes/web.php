@@ -82,6 +82,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/products/inactive/{id}', 'inactiveProducts')->name('products.inactive');
         Route::get('/products/active/{id}', 'activeProducts')->name('products.active');
         Route::get('/products/delete/{id}', 'deleteProducts')->name('products.delete');
+        Route::get('/products/delete/multi/images/{id}', 'deleteProductsMultiImages')->name('products.delete.multi.images');
+
 
 
 

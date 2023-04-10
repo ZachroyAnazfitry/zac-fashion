@@ -420,7 +420,7 @@
                             {{-- <i class="material-icons">edit</i> --}}
                             Save changes
                           </button>
-                          <a href="#"><button type="button" rel="tooltip" class="btn btn-danger">
+                          <a href="{{ route('products.delete.multi.images', $multi->id) }}"><button type="button" rel="tooltip" class="btn btn-danger">
                             <i class="material-icons">delete</i>
                               </button>
                           </a>

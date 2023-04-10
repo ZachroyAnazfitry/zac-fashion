@@ -226,6 +226,20 @@ class ProductsController extends Controller
         return back();
     }
 
+    public function deleteProductsMultiImages($id)
+    {
+        $images = ProductsImages::findOrFail($id);
+
+        // unlink image in storage folder
+        unlink($images['products_photo']);
+
+        ProductsImages::findOrFail($id)->delete();
+
+          // alert
+          session()->flash('success', 'Products images deleted!');
+          return back();
+    }
+
     public function inactiveProducts($id)
     {
         Products::findOrFail($id)->update([
