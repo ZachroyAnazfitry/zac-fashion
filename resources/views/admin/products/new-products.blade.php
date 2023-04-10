@@ -107,7 +107,6 @@
                   <option value="2">M</option>
                   <option value="3">L</option>
                   <option value="4">XL</option>
-                  
                 </select>
                 {{-- <input type="text" class="form-control text-center" id="size" style="border: 2px solid black" name="size"  > --}}
               </div>

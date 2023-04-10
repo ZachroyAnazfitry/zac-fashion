@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\VendorProductsController;
 use Illuminate\Support\Facades\Route;
@@ -83,9 +84,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/products/active/{id}', 'activeProducts')->name('products.active');
         Route::get('/products/delete/{id}', 'deleteProducts')->name('products.delete');
         Route::get('/products/delete/multi/images/{id}', 'deleteProductsMultiImages')->name('products.delete.multi.images');
+    });
 
-
-
+    // Slider
+    Route::controller(SliderController::class)->group(function () {
+        Route::get('/slider', 'showSlider')->name('slider');
+        Route::get('/slider/add', 'addSlider')->name('slider.add');
+        Route::post('/slider/store', 'storeSlider')->name('slider.store');
+        Route::get('/slider/edit/{id}', 'editslider')->name('slider.edit');
+        Route::put('/slider/update/{id}', 'updateNewSlider')->name('slider.update');
+        Route::get('/slider/delete/{id}', 'deleteSlider')->name('slider.delete');
 
     });
     
