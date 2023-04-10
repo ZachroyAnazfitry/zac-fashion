@@ -101,7 +101,12 @@ https://templatemo.com/tm-559-zay-shop
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{ route('shop.products') }}">All</a></li>
                                     @foreach ($categories as $category)
-                                        <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}</a>
+                                            @php
+                                                $products = App\Models\Products::where('category_id', '=', $category->id)->get();
+                                            @endphp 
+                                            <span>{{ count($products) }} items</span>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
