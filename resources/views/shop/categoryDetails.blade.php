@@ -68,27 +68,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    {{-- @php
-                        $products = App\Models\Product::where('id', 'vendor_id')->get();;
-                    @endphp --}}
-                    {{-- @foreach ($products as $category) --}}
+
+                @foreach ($products as $product)
+
                     <div class="col-md-4">
-                        
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="{{asset($products->picture)}}">
+                                <img class="card-img rounded-0 img-fluid" src="{{asset($product->picture)}}">
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
                                         <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="{{ url('products/details/'.$products->id) }}"><i class="far fa-eye"></i></a></li>
-                                        <li><a class="btn btn-success text-white mt-2" href="{{$products->id}}"><i class="fas fa-cart-plus"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="{{ url('products/details/'.$product->id) }}"><i class="far fa-eye"></i></a></li>
+                                        <li><a class="btn btn-success text-white mt-2" href="{{$product->id}}"><i class="fas fa-cart-plus"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="{{ url('products/details/'.$products->id) }}" class="h3 text-decoration-none">{{$products->products_name}}</a>
+                                <a href="{{ url('products/details/'.$product->id) }}" class="h3 text-decoration-none">{{$product->products_name}}</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li>{{$products->size}}</li>
+                                    <li>{{$product->size}}</li>
                                     <li class="pt-2">
                                         <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
@@ -106,15 +104,13 @@
                                         <i class="text-muted fa fa-star"></i>
                                     </li>
                                 </ul>
-                                <p class="text-center mb-0">RM{{$products->price}}</p>
+                                <p class="text-center mb-0">RM{{$product->price}}</p>
                             </div>
                         </div>
-                            
-                        
-                        
+                                
                     </div>
 
-                  {{-- @endforeach --}}
+                @endforeach
                    
                 </div>
                 <div div="row">
@@ -167,16 +163,16 @@
                                     <div class="carousel-item active">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_01.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_02.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_03.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_04.png" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -186,16 +182,16 @@
                                     <div class="carousel-item">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_01.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_02.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_03.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_04.png" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -205,16 +201,16 @@
                                     <div class="carousel-item">
                                         <div class="row">
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_01.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_02.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_03.png" alt="Brand Logo"></a>
                                             </div>
                                             <div class="col-3 p-md-5">
-                                                <a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand Logo"></a>
+                                                <a href="#"><img class="img-fluid brand-img" src="{{ asset('frontend/') }}/assets/img/brand_04.png" alt="Brand Logo"></a>
                                             </div>
                                         </div>
                                     </div>

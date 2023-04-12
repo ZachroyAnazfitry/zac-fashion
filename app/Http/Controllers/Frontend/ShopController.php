@@ -17,9 +17,16 @@ class ShopController extends Controller
         return view('shop.view', compact('categories'));
     }
 
-    public function oneCategory($id, $slug)
+    public function allCategory()
     {
-        $products = Products::findOrFail($id);
+        $products = Products::where('status', 1)->orderBy('id','DESC')->get();
+        // dd($products);
+        return view('shop.categoryDetails', compact('products'));
+    }
+
+    public function oneCategory(Request $request, $id, $slug)
+    {
+        $products = Products::where('status', 1)->where('category_id', $id)->orderBy('id','DESC')->get();
         // dd($products);
         return view('shop.categoryDetails', compact('products'));
     }

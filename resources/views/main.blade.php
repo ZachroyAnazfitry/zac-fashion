@@ -99,14 +99,14 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                                 <ul class="dropdown-menu">
                                     {{-- for All category --}}
-                                    <li><a class="dropdown-item" href="{{ route('shop.products') }}">All</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/category/details/all') }}">All</a></li>
                                     @foreach ($categories as $category)
-                                        <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}</a>
-                                            @php
-                                                $products = App\Models\Products::where('category_id', '=', $category->id)->get();
-                                            @endphp 
-                                            <span>{{ count($products) }} items</span>
+                                        @php
+                                            $products = App\Models\Products::where('category_id', '=', $category->id)->get();
+                                        @endphp 
+                                        <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}<span class="badge rounded-circle bg-primary text-white mx-2">{{ count($products) }}</span></a>
                                         </li>
+
                                     @endforeach
                                 </ul>
                             </div>
