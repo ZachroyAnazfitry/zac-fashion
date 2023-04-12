@@ -61,7 +61,7 @@
                          <tr>
                              <td>{{ $loop->iteration }}</td>
                              <td><img src="{{ asset($product->picture) }}" alt="" style="width: 70px; height:40px"></td>
-                             <td>{{ $product->products_name }}</td>
+                             <td class="text-capitalize">{{ $product->products_name }}</td>
                              {{-- <td>{{ $product->description }}</td> --}}
                              <td>{{ $product->quantity }}</td>
                              <td>{{ $product->price }}</td>

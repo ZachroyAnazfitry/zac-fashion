@@ -86,7 +86,20 @@
                             <div class="card-body">
                                 <a href="{{ url('products/details/'.$product->id) }}" class="h3 text-decoration-none">{{$product->products_name}}</a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li>{{$product->size}}</li>
+                                    {{-- <li>{{$product->size}}</li> --}}
+                                Size :    
+                                   @if ($product->size == 1)
+                                    <li>S</li>
+                                   @endif
+                                   @if ($product->size == 2)
+                                   <li>M</li>
+                                   @endif
+                                   @if ($product->size == 3)
+                                   <li>L</li>
+                                   @endif
+                                   @if ($product->size == 4)
+                                   <li>XL</li>
+                                   @endif
                                     <li class="pt-2">
                                         <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>

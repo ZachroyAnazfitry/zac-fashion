@@ -41,37 +41,21 @@
                         <!--Start Slides-->
                         <div class="carousel-inner product-links-wap" role="listbox">
 
-                            @foreach ($multiple_images as $p)
+                            @foreach ($multiple_images as $index => $img)
                             <!--First slide-->
-                            <div class="carousel-item active">
+                            <div class="carousel-item{{ $index == 0 ? ' active' : '' }}">
                                 <div class="row">
                                     <div class="col-4">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="{{asset($p->products_photos)}}" alt="Product Image 1">
+                                            <img class="card-img img-fluid" src="{{ asset($img->products_photo) }}" alt="Product Image 1">
                                         </a>
                                     </div>
-                                   
-                                    {{-- <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="{{asset($p->products_photos)}}" alt="Product Image 2">
-                                        </a>
-                                    </div> --}}
-                                  
-                                   
-                                    {{-- <div class="col-4">
-                                        <a href="#">
-                                            <img class="card-img img-fluid" src="assets/img/product_single_03.jpg" alt="Product Image 3">
-                                        </a>
-                                    </div> --}}
                                 </div>
                             </div>
                             <!--/.First slide-->
                             @endforeach
-                             
-                           
 
                             <!--Second slide-->
-                   
 {{-- 
                             <div class="carousel-item">
                                 <div class="row">
@@ -171,7 +155,7 @@
                                 @if ($products_details->brands_id == NULL)
                                     <p class="text-muted"><strong>Zac Fashion</strong></p>
                                 @else
-                                    <p class="text-muted"><strong>{{ $products_details['brand']['brand_name'] }}</strong></p>
+                                    <p class="text-muted"><strong>{{ Str::ucfirst($products_details['brand']['brand_name']) }}</strong></p>
                                 @endif
                             </li>
                         </ul>
@@ -183,7 +167,7 @@
                                 <h6>Avaliable Color :</h6>
                             </li>
                             <li class="list-inline-item">
-                                <p class="text-muted"><strong>{{ $products_details->color }}</strong></p>
+                                <p class="text-muted"><strong>{{ Str::ucfirst($products_details->color ) }}</strong></p>
                             </li>
                         </ul>
 

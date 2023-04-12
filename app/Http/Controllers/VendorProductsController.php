@@ -54,13 +54,13 @@ class VendorProductsController extends Controller
             'category_id' =>$request->category_id,
             'sub_category_id' =>$request->sub_category_id,
             'vendor_id' => Auth::user()->id,  // get current vendor id
-            'products_name' =>$request->products_name,
+            'products_name' =>strtoupper($request->products_name),
             'products_slug' =>strtolower(str_replace(' ','-', $request->products_name)) ,
             'code' =>$request->code,
             'quantity' =>$request->quantity,
             'tags' =>$request->tags,
             'size' =>$request->size,
-            'color' =>$request->color,
+            'color' =>strtoupper($request->color),
             'description' =>$request->description,
             'specification' =>$request->specification,
             'price' =>$request->price,
@@ -155,7 +155,7 @@ class VendorProductsController extends Controller
 
         // session message
         session()->flash('success', 'Products updated!');
-        return redirect()->route('products.manage');        
+        return redirect()->route('vendor.all.products');        
     }
 
     public function inactiveProducts($id)
