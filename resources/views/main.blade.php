@@ -122,7 +122,7 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                                 <ul class="dropdown-menu">
                                     @foreach ($vendors as $vendor)
-                                        <li><a class="dropdown-item" href="{{ route('shop.products', $vendor->id) }}">{{  Str::ucfirst($vendor->name)  }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('/vendor/details/'.$vendor->id) }}">{{  Str::ucfirst($vendor->name)  }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>

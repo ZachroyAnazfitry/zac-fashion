@@ -157,5 +157,7 @@ Route::get('/shop', [ShopController::class, 'viewShop'])->name('shop.products');
 Route::get('/category/details/all', [ShopController::class, 'allCategory']);
 Route::get('/category/details/{id}/{slug}', [ShopController::class, 'oneCategory']);
 Route::get('/products/details/{id}', [ShopController::class, 'oneProducts']);
+Route::get('/vendor/details/{id}', [ShopController::class, 'oneVendor']);
+
 
 require __DIR__.'/auth.php';

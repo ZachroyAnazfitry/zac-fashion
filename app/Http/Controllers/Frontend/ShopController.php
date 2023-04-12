@@ -41,4 +41,11 @@ class ShopController extends Controller
         // dd( $multiple_images );
         return view('shop.productsDetails', compact('products_details','multiple_images'));
     }
+
+    public function oneVendor(Request $request, $id)
+    {
+        $products = Products::where('status', 1)->where('vendor_id', $id)->orderBy('id','DESC')->get();
+        // dd($products);
+        return view('shop.vendorDetails', compact('products'));
+    }
 }
