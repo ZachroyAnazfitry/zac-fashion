@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
   <!-- Material Dashboard CSS -->
-  <link rel="stylesheet" href="assets/css/material-dashboard?v=2.1.2.css">
+  <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/material-dashboard?v=2.1.2.css">
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
@@ -36,7 +36,9 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-    
+    {{-- jquery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/') }}/assets/css/slick.min.css">
@@ -150,12 +152,18 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
                     {{-- show if user not login --}}
-                    @auth
+                    {{-- @auth --}}
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+
+                        {{-- mini cart --}}
+                        <div id="miniCart">
+
+                        </div>
+
                     </a>
-                    @endauth
+                    {{-- @endauth --}}
                     {{-- show if user not login --}}
                     <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
@@ -382,7 +390,10 @@ https://templatemo.com/tm-559-zay-shop
     
     {{-- jquery --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-    {{-- toastr --}}
+    {{-- sweetalert --}}
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     @if(Session::has('message'))
     toastr.options =
@@ -484,32 +495,82 @@ https://templatemo.com/tm-559-zay-shop
     function addToCart(id) {
 
         // alert(id); // testing
+        event.preventDefault(); // prevent default form submission behavior
 
-        // var products_name = $('#products_name').text();
+        var products_name = $('#products_name').text();
         // var productId = id;
-        // var price = $('#price').text();
-        // var color = $('#color').text();
-        // var quantity = $('#quantity').val();
+        // var price = $('#price').val();
+        var color = $('#color option:selected').text();
+        var size = $('#size option:selected').text();
+        var quantity = $('#quantity').val();
         $.ajax({
             type: 'POST',
             url: '/cart/data/store/'+ id,
             dataType: 'json',
-            // data:{
-            //     _token: '{{ csrf_token() }}',
-            //     color:color, 
-            //     quantity:quantity,
-            //     products_name:products_name,
-            //     price: price,
+            data:{
+                _token: '{{ csrf_token() }}',
+                products_name:products_name,
+                size:size,
+                quantity:quantity,
+                color:color, 
+                // price: price,
 
-            // },
+            },
             success: function(data) {
-                console.log(data);
+                // console.log(data);
+
+                // sweetalert
+                const Toastr = Swal.mixin({
+                    toast:true,
+                    position: 'top-end',
+                    icon: 'success',
+                    // title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toastr.fire({
+                    type: 'success',
+                    title: data.success,
+                    })
+                } else {
+                    Toastr.fire({
+                    type: 'error',
+                    title: data.error,
+                    })
             }
+            },
+            error: function(data){
+                var errors = data.responseJSON;
+                console.log(errors);
+            },
+           
         });
 
     }
 </script>
   {{-- End of Jquery JSON --}}
+
+  {{-- mini cart Jquery --}}
+  <script>
+    function miniCart() {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url:'/cart/data/show',
+            success:function (response) {
+                console.log(response);
+            }
+        })
+
+        // display in blade
+        var miniCart = ""
+
+        $.each(response.carts, function(key,value){
+            miniCart += 
+        })
+    }
+  </script>
 
 </body>
 

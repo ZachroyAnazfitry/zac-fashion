@@ -160,9 +160,10 @@ Route::get('/category/details/{id}/{slug}', [ShopController::class, 'oneCategory
 Route::get('/products/details/{id}', [ShopController::class, 'oneProducts']);
 Route::get('/vendor/details/{id}', [ShopController::class, 'oneVendor']);
 
-// Bumbummen addToCart
+// Bumbummen Shopping Cart route
 Route::get('product/view/modal/{id}', [ShopController::class, 'eyeProducts']);
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
+Route::get('/cart/data/show', [CartController::class, 'miniCart']);
 
 
 

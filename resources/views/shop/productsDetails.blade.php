@@ -137,9 +137,8 @@
                             <p >{{ round($discount) }}% or RM{{ $products_details->discount_price }}</p>
                             <h6>Price Before Discount: </h6>
                             <p class="h3 py-2">RM{{ $products_details->price }}</p>
-
-                            
                         @endif
+                        
                         <p class="py-2">
                             <i class="fa fa-star text-warning"></i>
                             <i class="fa fa-star text-warning"></i>
@@ -190,7 +189,7 @@
                                 <div class="col-auto">
                                     <ul class="list-inline pb-3">
                                         <li class="list-inline-item">Size :
-                                            <input type="hidden" name="product-size" id="product-size" value="S">
+                                            <input type="hidden" name="product-size" id="size" value="S">
                                         </li>
                                        @if ($products_details->size == 1)
                                         <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
@@ -220,7 +219,7 @@
                                        
                                         <li class="list-inline-item text-right">
                                             Quantity
-                                            <input type="hidden" name="quantity" id="quantity" value="1">
+                                            <input type="hidden" name="quantity" id="quantity">
                                         </li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
                                         <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>

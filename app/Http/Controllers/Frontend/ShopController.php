@@ -56,4 +56,5 @@ class ShopController extends Controller
         // dd($products);
         return view('shop.vendorDetails', compact('products'));
     }
+
 }
