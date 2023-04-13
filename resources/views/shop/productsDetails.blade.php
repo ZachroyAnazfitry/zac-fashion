@@ -1,5 +1,6 @@
 @extends('main')
 
+
 @section('main_content')
 
 <!-- Modal -->
@@ -45,9 +46,9 @@
                             <!--First slide-->
                             <div class="carousel-item{{ $index == 0 ? ' active' : '' }}">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="text-center">
                                         <a href="#">
-                                            <img class="card-img img-fluid" src="{{ asset($img->products_photo) }}" alt="Product Image 1">
+                                            <img class="card-img img-fluid" id="products_photo" style="width:250px; height:250px" src="{{ asset($img->products_photo) }}" alt="Product Image 1">
                                         </a>
                                     </div>
                                 </div>
@@ -126,12 +127,12 @@
                             $amount = $products_details->price - $products_details->discount_price;
                             $discount = ($amount/$products_details->price)*100;
                         @endphp
-                        <h1 class="h2">{{ $products_details->products_name }}</h1>
+                        <h1 class="h2" id="products_name">{{ $products_details->products_name }}</h1>
 
                         @if ($products_details->discount_price == NULL)
-                            <p class="h3 py-2">RM{{ $products_details->price }}</p>
+                            <p class="h3 py-2" id="price">RM{{ $products_details->price }}</p>
                         @else
-                            <p class="h3 py-2" style="color: red">RM{{ $amount }}</p>
+                            <p class="h3 py-2" style="color: red" id="price">RM{{ $amount }}</p>
                             <h6>Discount: </h6>
                             <p >{{ round($discount) }}% or RM{{ $products_details->discount_price }}</p>
                             <h6>Price Before Discount: </h6>
@@ -167,7 +168,7 @@
                                 <h6>Avaliable Color :</h6>
                             </li>
                             <li class="list-inline-item">
-                                <p class="text-muted"><strong>{{ Str::ucfirst($products_details->color ) }}</strong></p>
+                                <p class="text-muted" id="color"><strong>{{ Str::ucfirst($products_details->color ) }}</strong></p>
                             </li>
                         </ul>
 
@@ -183,7 +184,8 @@
                         </ul>
 
                         <form action="" method="GET">
-                            <input type="hidden" name="product-title" value="Activewear">
+                            @csrf
+                            <input type="hidden" name="product-title" >
                             <div class="row">
                                 <div class="col-auto">
                                     <ul class="list-inline pb-3">
@@ -218,7 +220,7 @@
                                        
                                         <li class="list-inline-item text-right">
                                             Quantity
-                                            <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                            <input type="hidden" name="quantity" id="quantity" value="1">
                                         </li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
                                         <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
@@ -247,13 +249,15 @@
                                     <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                 </div>
                                 <div class="col d-grid">
-                                    <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                    {{-- <input type="hidden" id="products_id"> --}}
+                                    <button type="submit"  id="{{ $products_details->id }}" onclick="addToCart(this.id)" class="btn btn-success btn-lg" name="submit" value="addtocard"><i class="fa-sharp fa-solid fa-cart-shopping"></i> Add To Cart</button>
                                 </div>
                             </div>
                         </form>
 
-                        <a href="{{ route('shop.products') }}"><button type="button" class="btn btn-info">Back</button>
-
+                        <div class="text-center">
+                            <a href="#"><button type="button" class="btn btn-info text-center" onclick="history.back()">Back</button>
+                        </div>
 
                     </div>
                 </div>
@@ -735,5 +739,7 @@
     </div>
 </section> --}}
 <!-- End Article -->
+
+
      
 @endsection

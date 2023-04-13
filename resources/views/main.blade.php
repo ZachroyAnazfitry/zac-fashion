@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {{-- Jquery JSON --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -33,9 +36,11 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
+    
+
     <!-- Slick -->
-    <link rel="stylesheet" type="text/css" href="assets/css/slick.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/') }}/assets/css/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/') }}/assets/css/slick-theme.css">
 <!--
     
 TemplateMo 559 Zay Shop
@@ -52,9 +57,9 @@ https://templatemo.com/tm-559-zay-shop
             <div class="w-100 d-flex justify-content-between">
                 <div>
                     <i class="fa fa-envelope mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@zac-fashion.com</a>
                     <i class="fa fa-phone mx-2"></i>
-                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-764-0797</a>
                 </div>
                 <div>
                     <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
@@ -72,7 +77,7 @@ https://templatemo.com/tm-559-zay-shop
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
     
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="/">
                 Zac Fashion
             </a>
     
@@ -374,7 +379,9 @@ https://templatemo.com/tm-559-zay-shop
     <script src="{{ asset('frontend/') }}/assets/js/templatemo.js"></script>
     <script src="{{ asset('frontend/') }}/assets/js/custom.js"></script>
     <!-- End Script -->
-
+    
+    {{-- jquery --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     {{-- toastr --}}
   <script>
     @if(Session::has('message'))
@@ -415,7 +422,7 @@ https://templatemo.com/tm-559-zay-shop
   </script>
 
   <!-- Start Slider Script -->
-  <script src="assets/js/slick.min.js"></script>
+  <script src="{{ asset('frontend/') }}/assets/js/slick.min.js"></script>
   <script>
       $('#carousel-related-product').slick({
           infinite: true,
@@ -448,6 +455,62 @@ https://templatemo.com/tm-559-zay-shop
       });
   </script>
   <!-- End Slider Script -->
+
+  {{-- Jquery JSON --}}
+  <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+        }
+    });
+
+    // eye cart
+    function productView(id) {
+        
+        alert(id); // testing
+
+        $.ajax({
+            type: 'GET',
+            url: 'product/view/modal/' + id,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    };
+
+    // add to cart
+    function addToCart(id) {
+
+        // alert(id); // testing
+
+        // var products_name = $('#products_name').text();
+        // var productId = id;
+        // var price = $('#price').text();
+        // var color = $('#color').text();
+        // var quantity = $('#quantity').val();
+        $.ajax({
+            type: 'POST',
+            url: '/cart/data/store/'+ id,
+            dataType: 'json',
+            // data:{
+            //     _token: '{{ csrf_token() }}',
+            //     color:color, 
+            //     quantity:quantity,
+            //     products_name:products_name,
+            //     price: price,
+
+            // },
+            success: function(data) {
+                console.log(data);
+            }
+        });
+
+    }
+</script>
+  {{-- End of Jquery JSON --}}
+
 </body>
 
 </html>

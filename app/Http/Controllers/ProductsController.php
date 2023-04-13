@@ -258,7 +258,7 @@ class ProductsController extends Controller
         ]);
 
            // alert
-        session()->flash('success', 'Products deactivated!');
+        session()->flash('success', 'Products activated!');
         return back();
     }
 

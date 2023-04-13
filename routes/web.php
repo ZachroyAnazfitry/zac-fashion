@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SliderController;
@@ -158,6 +159,11 @@ Route::get('/category/details/all', [ShopController::class, 'allCategory']);
 Route::get('/category/details/{id}/{slug}', [ShopController::class, 'oneCategory']);
 Route::get('/products/details/{id}', [ShopController::class, 'oneProducts']);
 Route::get('/vendor/details/{id}', [ShopController::class, 'oneVendor']);
+
+// Bumbummen addToCart
+Route::get('product/view/modal/{id}', [ShopController::class, 'eyeProducts']);
+Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
+
 
 
 require __DIR__.'/auth.php';

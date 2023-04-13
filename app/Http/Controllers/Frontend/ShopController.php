@@ -42,6 +42,14 @@ class ShopController extends Controller
         return view('shop.productsDetails', compact('products_details','multiple_images'));
     }
 
+    // using JQuery
+    public function eyeProducts(Request $request, $id)
+    {
+        $products = Products::with('category', 'brands')->findOrFail($id);
+        // dd($products);
+        return response()->json(array('products' => $products));
+    }
+
     public function oneVendor(Request $request, $id)
     {
         $products = Products::where('status', 1)->where('vendor_id', $id)->orderBy('id','DESC')->get();

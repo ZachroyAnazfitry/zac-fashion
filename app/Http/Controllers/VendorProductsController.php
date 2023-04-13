@@ -41,8 +41,8 @@ class VendorProductsController extends Controller
         // create unique id with its own products_picture extension(jpeg,png)
         $products_picture_generated = hexdec(uniqid()).'.'.$products_picture->getClientOriginalExtension();
         // resize products_picture by calling products_picture intervention package
-        Image::make($products_picture)->resize(600,800)->save('upload/products/picture'.$products_picture_generated);
-        $picture = 'upload/products/picture'.$products_picture_generated; 
+        Image::make($products_picture)->resize(600,800)->save('upload/products/picture/'.$products_picture_generated);
+        $picture = 'upload/products/picture/'.$products_picture_generated; 
 
         
         
@@ -61,7 +61,7 @@ class VendorProductsController extends Controller
             'tags' =>$request->tags,
             'size' =>$request->size,
             'color' =>strtoupper($request->color),
-            'description' =>$request->description,
+            'description' =>ucfirst($request->description),
             'specification' =>$request->specification,
             'price' =>$request->price,
             'discount_price' =>$request->discount_price,
@@ -85,8 +85,8 @@ class VendorProductsController extends Controller
             // create unique id with its own image extension(jpeg,png)
             $thumbnail_generated = hexdec(uniqid()).'.'.$thumbnail->getClientOriginalExtension();
             // resize thumbnail by calling image intervention package
-            Image::make($thumbnail)->resize(900,900)->save('upload/products/thumbnails'.$thumbnail_generated);
-            $upload_thumbnails = 'upload/products/thumbnails'.$thumbnail_generated; 
+            Image::make($thumbnail)->resize(900,900)->save('upload/products/thumbnails/'.$thumbnail_generated);
+            $upload_thumbnails = 'upload/products/thumbnails/'.$thumbnail_generated; 
 
             // insert data
             ProductsImages::insert([
@@ -176,7 +176,7 @@ class VendorProductsController extends Controller
         ]);
 
            // alert
-        session()->flash('success', 'Products deactivated!');
+        session()->flash('success', 'Products activated!');
         return back();
     }
 
