@@ -124,17 +124,17 @@
                 <div class="card">
                     <div class="card-body">
                         @php
-                            $amount = $products_details->price - $products_details->discount_price;
-                            $discount = ($amount/$products_details->price)*100;
+                            $amount = ($products_details->discount_price * $products_details->price)/100;
+                            $discounted = $products_details->price - $amount;
                         @endphp
                         <h1 class="h2" id="products_name">{{ $products_details->products_name }}</h1>
 
                         @if ($products_details->discount_price == NULL)
                             <p class="h3 py-2" id="price">RM{{ $products_details->price }}</p>
                         @else
-                            <p class="h3 py-2" style="color: red" id="price">RM{{ $amount }}</p>
+                            <p class="h3 py-2" style="color: red" id="price">RM{{ $discounted }}</p>
                             <h6>Discount: </h6>
-                            <p >{{ round($discount) }}% or RM{{ $products_details->discount_price }}</p>
+                            <p >{{ $products_details->discount_price }}%</p>
                             <h6>Price Before Discount: </h6>
                             <p class="h3 py-2">RM{{ $products_details->price }}</p>
                         @endif
@@ -167,7 +167,7 @@
                                 <h6>Avaliable Color :</h6>
                             </li>
                             <li class="list-inline-item">
-                                <p class="text-muted" id="color"><strong>{{ Str::ucfirst($products_details->color ) }}</strong></p>
+                                <p class="text-muted"  id="color"><strong>{{ Str::ucfirst($products_details->color ) }}</strong></p>
                             </li>
                         </ul>
 
@@ -189,7 +189,7 @@
                                 <div class="col-auto">
                                     <ul class="list-inline pb-3">
                                         <li class="list-inline-item">Size :
-                                            <input type="hidden" name="product-size" id="size" value="S">
+                                            {{-- <input type="text" name="size" id="size" value="{{$products_details->size}}"> --}}
                                         </li>
                                        @if ($products_details->size == 1)
                                         <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
@@ -219,10 +219,10 @@
                                        
                                         <li class="list-inline-item text-right">
                                             Quantity
-                                            <input type="hidden" name="quantity" id="quantity">
+                                            
                                         </li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value"><input type="hidden" name="quantity" id="quantity" value="" min="1"></span></li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
                                     </ul>
                                         
@@ -231,7 +231,7 @@
                                        
                                         <li class="list-inline-item text-right">
                                             Not Applicable
-                                            <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                            <input type="hidden" name="quantity" id="quantity">
                                         </li>
                                         {{-- <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
                                         <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>

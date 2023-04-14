@@ -49,12 +49,13 @@ class CartController extends Controller
                 'id' => $id,
                 'name' => $request->products_name,
                 // 'qty' => $request->quantity,
-                // 'price' => $request->price,
-                'price' => '9.99',
-                'qty' => '2',
+                'price' => $products->price,
+                // 'price' => '99.99',
+                'qty' => '1',
                 'weight' => 1,
                 'options' => [
-                    'size' => $request->size,
+                    // 'size' => $request->size,
+                    'picture' => $products->picture,
                     'color' => $request->color,
                 ]
             ]);
@@ -65,13 +66,15 @@ class CartController extends Controller
                 'id' => $id,
                 'name' => $request->products_name,
                 // 'qty' => $request->quantity,
-                // 'price' => $request->discount_price,
+                'price' => $products->discount_price,
                 'weight' => 1,
-                'price' => '9.99',
-                'qty' => '2',
+                // 'price' => '99.99',
+                'qty' => '1',
+                // 'size' => $request->size,
                 'options' => [
-                    'size' => $request->size,
-                    'color' => $request->color,
+                    // 'size' => $request->size,
+                    'picture' => $products->picture,
+                    'color' => $request->input('color'),
                 ]
             ]);
 

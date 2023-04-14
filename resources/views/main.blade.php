@@ -522,10 +522,15 @@ https://templatemo.com/tm-559-zay-shop
 
         var products_name = $('#products_name').text();
         // var productId = id;
-        // var price = $('#price').val();
-        var color = $('#color option:selected').text();
-        var size = $('#size option:selected').text();
+        var price = $('#price').text();
+        var color = $('#color').text();
+        // var size = $('#size').text();
         var quantity = $('#quantity').val();
+        
+        console.log(price);
+        console.log(color);
+        console.log(quantity);
+
         $.ajax({
             type: 'POST',
             url: '/cart/data/store/'+ id,
@@ -533,10 +538,10 @@ https://templatemo.com/tm-559-zay-shop
             data:{
                 _token: '{{ csrf_token() }}',
                 products_name:products_name,
-                size:size,
+                // size:size,
                 quantity:quantity,
                 color:color, 
-                // price: price,
+                price: price,
 
             },
             success: function(data) {
@@ -596,6 +601,7 @@ https://templatemo.com/tm-559-zay-shop
                                                 <span class="item-info">
                                                     <span>${value.name}</span>
                                                     <span>Price: ${value.price}</span>
+                                                    <span>Quantity: ${value.qty}</span>
                                                 </span>
                                             </span>
                                             <span class="item-right">
@@ -603,6 +609,7 @@ https://templatemo.com/tm-559-zay-shop
                                             </span>
                                         </span>
                                         </li>
+                                        <hr>
                                     
                                      `
                                     
