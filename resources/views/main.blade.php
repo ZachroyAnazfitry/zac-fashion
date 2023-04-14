@@ -153,16 +153,39 @@ https://templatemo.com/tm-559-zay-shop
                     </a>
                     {{-- show if user not login --}}
                     {{-- @auth --}}
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
+
+                    {{-- mini cart --}}
+                    <div class="dropdown" >
+                        <a class="nav-link dropdown-toggle nav-icon position-relative text-decoration-none" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-cart" id="miniCart">
+                            {{-- <li>
+                                <span class="item">
+                                <span class="item-left">
+                                    <img src="http://www.prepbootstrap.com/Content/images/template/menucartdropdown/item_1.jpg" alt="" />
+                                    <span class="item-info">
+                                        <span>Name</span>
+                                        <span>Price: </span>
+                                    </span>
+                                </span>
+                                <span class="item-right">
+                                    <button class="btn btn-danger  fa fa-close"></button>
+                                </span>
+                            </span>
+                            </li> --}}
+                            
+                            <li class="divider"></li>
+                            <li><a class="text-center" href="#">View Cart</a></li>
+                        </ul>                           
+                        
+                    </div>
+                    {{-- <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-
-                        {{-- mini cart --}}
-                        <div id="miniCart">
-
-                        </div>
-
-                    </a>
+                    </a> --}}
                     {{-- @endauth --}}
                     {{-- show if user not login --}}
                     <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -559,18 +582,40 @@ https://templatemo.com/tm-559-zay-shop
             dataType: 'json',
             url:'/cart/data/show',
             success:function (response) {
-                console.log(response);
+                // console.log(response);
+
+                // display in blade
+                var miniCart = ""
+
+                $.each(response.carts, function(key,value){
+                    miniCart += ` 
+                                        <li>
+                                            <span class="item">
+                                            <span class="item-left">
+                                                <img src="http://www.prepbootstrap.com/Content/images/template/menucartdropdown/item_1.jpg" alt="" />
+                                                <span class="item-info">
+                                                    <span>${value.name}</span>
+                                                    <span>Price: ${value.price}</span>
+                                                </span>
+                                            </span>
+                                            <span class="item-right">
+                                                <button class="btn btn-danger  fa fa-close"></button>
+                                            </span>
+                                        </span>
+                                        </li>
+                                    
+                                     `
+                                    
+                });
+
+                // pass it
+                $('#miniCart').html(miniCart);
             }
-        })
-
-        // display in blade
-        var miniCart = ""
-
-        $.each(response.carts, function(key,value){
-            miniCart += 
-        })
+        })   
     }
-  </script>
+
+    miniCart();
+</script>
 
 </body>
 
