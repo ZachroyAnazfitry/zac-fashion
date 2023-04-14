@@ -158,7 +158,7 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="dropdown" >
                         <a class="nav-link dropdown-toggle nav-icon position-relative text-decoration-none" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                            <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark" id="cartCount"></span>
                         </a>
 
                         <ul class="dropdown-menu dropdown-cart" id="miniCart">
@@ -525,8 +525,8 @@ https://templatemo.com/tm-559-zay-shop
         var price = $('#price').text();
         var color = $('#color').text();
         // var size = $('#size').text();
-        var quantity = $('#quantity').val();
-        
+        var quantity = $('.quantity').val();
+
         console.log(price);
         console.log(color);
         console.log(quantity);
@@ -592,20 +592,23 @@ https://templatemo.com/tm-559-zay-shop
                 // display in blade
                 var miniCart = ""
 
+                // cartCount
+                $('#cartCount').text(response.cartQuantity);
+
                 $.each(response.carts, function(key,value){
                     miniCart += ` 
                                         <li>
                                             <span class="item">
                                             <span class="item-left">
-                                                <img src="http://www.prepbootstrap.com/Content/images/template/menucartdropdown/item_1.jpg" alt="" />
+                                                <img src="/${value.options.picture}" alt="" style="width:50px;height:50px" />
                                                 <span class="item-info">
                                                     <span>${value.name}</span>
-                                                    <span>Price: ${value.price}</span>
+                                                    <span>Price:RM${value.price}</span>
                                                     <span>Quantity: ${value.qty}</span>
                                                 </span>
                                             </span>
                                             <span class="item-right">
-                                                <button class="btn btn-danger  fa fa-close"></button>
+                                                <button class="btn btn-danger fa fa-close" type="submit" id="${value.rowId}" onclick="cartRemove(this.id)" ></button>
                                             </span>
                                         </span>
                                         </li>
@@ -622,6 +625,45 @@ https://templatemo.com/tm-559-zay-shop
     }
 
     miniCart();
+
+    // remove cart function
+    function cartRemove(rowId) {
+        $.ajax({
+            type: "GET",
+            url: '/cart/data/remove/' + rowId,
+            dataType:'json',
+            success: function(data) {
+                miniCart();
+                // console.log(data);
+
+                // sweetalert
+                const Toastr = Swal.mixin({
+                    toast:true,
+                    position: 'top-end',
+                    icon: 'success',
+                    // title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toastr.fire({
+                    type: 'success',
+                    title: data.success,
+                    })
+                } else {
+                    Toastr.fire({
+                    type: 'error',
+                    title: data.error,
+                    })
+            }
+            },
+            error: function(data){
+                var errors = data.responseJSON;
+                console.log(errors);
+            },
+            
+        });
+    }
 </script>
 
 </body>

@@ -50,7 +50,6 @@ class CartController extends Controller
                 'name' => $request->products_name,
                 // 'qty' => $request->quantity,
                 'price' => $products->price,
-                // 'price' => '99.99',
                 'qty' => '1',
                 'weight' => 1,
                 'options' => [
@@ -65,10 +64,9 @@ class CartController extends Controller
             Cart::add([
                 'id' => $id,
                 'name' => $request->products_name,
-                // 'qty' => $request->quantity,
                 'price' => $products->discount_price,
                 'weight' => 1,
-                // 'price' => '99.99',
+                // 'qty' => $request->quantity,
                 'qty' => '1',
                 // 'size' => $request->size,
                 'options' => [
@@ -92,8 +90,16 @@ class CartController extends Controller
 
         return response()->json(array(
             'carts' => $carts,
-            'cartQuantity' => $cartQuantity,
-            'cartTotal' => $cartTotal,
+            'cartQuantity' => $cartQuantity, //for displaying cartCount
+            'cartTotal' => $cartTotal,  // for displaying total price
         ));
+    }
+
+    public function cartRemove($rowId)
+    {
+        // call method to remove
+        Cart::remove($rowId);
+        return response()->json(['success' => 'Products successfully removed from your cart.']);
+
     }
 }

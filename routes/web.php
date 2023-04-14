@@ -164,6 +164,7 @@ Route::get('/vendor/details/{id}', [ShopController::class, 'oneVendor']);
 Route::get('product/view/modal/{id}', [ShopController::class, 'eyeProducts']);
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
 Route::get('/cart/data/show', [CartController::class, 'miniCart']);
+Route::get('/cart/data/remove/{id}', [CartController::class, 'cartRemove']);
 
 
 

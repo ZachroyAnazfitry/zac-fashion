@@ -219,10 +219,10 @@
                                        
                                         <li class="list-inline-item text-right">
                                             Quantity
-                                            
+                                            {{-- <input type="hidden" name="quantity" id="quantity" min="1"> --}}
                                         </li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value"><input type="hidden" name="quantity" id="quantity" value="" min="1"></span></li>
+                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value" >0</span></li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
                                     </ul>
                                         
