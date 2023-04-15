@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\ShopController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\VendorController;
@@ -160,12 +161,14 @@ Route::get('/category/details/{id}/{slug}', [ShopController::class, 'oneCategory
 Route::get('/products/details/{id}', [ShopController::class, 'oneProducts']);
 Route::get('/vendor/details/{id}', [ShopController::class, 'oneVendor']);
 
-// Bumbummen Shopping Cart route
+// Bumbummen Shopping Cart routes
 Route::get('product/view/modal/{id}', [ShopController::class, 'eyeProducts']);
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
 Route::get('/cart/data/show', [CartController::class, 'miniCart']);
 Route::get('/cart/data/remove/{id}', [CartController::class, 'cartRemove']);
 
+// Wishlist routes
+Route::post('/wishlist/{product_id}', [WishlistController::class, 'wishlist']);
 
 
 require __DIR__.'/auth.php';

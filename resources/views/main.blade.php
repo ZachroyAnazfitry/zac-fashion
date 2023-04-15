@@ -666,6 +666,48 @@ https://templatemo.com/tm-559-zay-shop
     }
 </script>
 
+{{-- Wishlist function --}}
+<script>
+    function wishlist(product_id) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/wishlist/"+ product_id,
+            success: function(data) {
+                
+                // console.log(data);
+
+                // sweetalert
+                const Toastr = Swal.mixin({
+                    toast:true,
+                    position: 'top-end',
+                    // title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 5000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toastr.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: data.success,
+                    })
+                } else {
+                    Toastr.fire({
+                    type: 'error',
+                    icon: 'error',
+                    title: data.error,
+                    })
+            }
+            },
+            error: function(data){
+                var errors = data.responseJSON;
+                console.log(errors);
+            },
+
+        })
+    }
+</script>
+
 </body>
 
 </html>
