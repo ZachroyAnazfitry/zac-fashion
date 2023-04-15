@@ -137,6 +137,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/customer/wishlist', [WishlistController::class, 'customerWishlist'])->name('customer.wishlist');
     Route::get('/get/wishlist', [WishlistController::class, 'getWishlist']);
     Route::get('/wishlist/remove/{id}', [WishlistController::class, 'removeWishlist']);
+    Route::get('/customer/mycart', [CartController::class, 'myCart'])->name('mycart');
+    Route::get('/cart-page', [CartController::class, 'getCart']);
+    Route::get('/cart/remove/{rowId}', [CartController::class, 'removeCart']);
+
+
 
 
     

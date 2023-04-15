@@ -182,10 +182,10 @@ https://templatemo.com/tm-559-zay-shop
                                 </span>
                             </span>
                             </li> --}}
-                            
-                            <li class="divider"></li>
-                            <li><a class="text-center" href="#">View Cart</a></li>
-                        </ul>                           
+                             
+                          
+                        </ul> 
+                                                
                         
                     </div>
 
@@ -635,6 +635,9 @@ https://templatemo.com/tm-559-zay-shop
                                         </span>
                                         </li>
                                         <hr>
+                                        <li class="divider"></li>
+                                        <li><a class="text-center" href="{{ route('mycart') }}">View Cart</a></li> 
+                                        
                                     
                                      `
                                     
@@ -826,6 +829,95 @@ function removeWishlist(id) {
     
 }
 
+</script>
+
+{{-- Cart page --}}
+<script>
+    function cart() {
+        $.ajax({
+            type: "GET",
+            dataType: 'json',
+            url:'/cart-page',
+            success:function (response) {
+                // console.log(response);
+
+                // display in blade
+                var rows = ""
+
+                $.each(response.carts, function(key,value){
+                    rows += ` 
+                         <tr>
+                            <td>
+                                <div class="product-item">
+                                    <a class="product-thumb" href="#"><img src="/${value.options.picture}" alt="Product"></a>
+                                    <div class="product-info">
+                                        <h4 class="product-title"><a href="#">${value.name}</a></h4><span><em>Size:</em> 10.5</span><span><em>Color:</em> Dark Blue</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="count-input">
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="text-center text-lg text-medium">$43.90</td>
+                            <td class="text-center text-lg text-medium">$18.00</td>
+                            <td class="text-center"><a class="remove-from-cart" type="submit" id="${value.rowId}" onclick="cartRemove(this.id)" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                        `
+                                    
+                });
+
+                // pass it
+                $('#cartPage').html(rows);
+            }
+        })   
+    }
+
+    cart();
+
+    function cartRemove(id) {
+
+$.ajax({
+        type: "GET",
+        url: '/cart/remove/' + id,
+        dataType:'json',
+        success: function(data) {
+            cart(); 
+            miniCart(); 
+            // console.log(data);
+
+            // sweetalert
+            const Toastr = Swal.mixin({
+                toast:true,
+                position: 'top-end',
+                icon: 'success',
+                // title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 3000
+            })
+            if ($.isEmptyObject(data.error)) {
+                Toastr.fire({
+                type: 'success',
+                title: data.success,
+                })
+            } else {
+                Toastr.fire({
+                type: 'error',
+                title: data.error,
+                })
+        }
+        },
+        
+    });
+
+}
 </script>
 
 </body>
