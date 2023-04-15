@@ -152,7 +152,7 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
                     {{-- show if user not login --}}
-                    {{-- @auth --}}
+                    @auth
 
                     {{-- mini cart --}}
                     <div class="dropdown" >
@@ -186,12 +186,25 @@ https://templatemo.com/tm-559-zay-shop
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                     </a> --}}
-                    {{-- @endauth --}}
-                    {{-- show if user not login --}}
-                    <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a class="nav-icon position-relative text-decoration-none" href="{{ route('customer.profile') }}">
                         <i class="fa fa-fw fa-user text-dark mr-3"></i>
                         {{-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span> --}}
                     </a>
+                    <a href="{{ route('customer.logout') }}" class="nav-link text-body font-weight-bold px-0">
+                        <i class=" me-sm-1"></i>
+                        <span class="d-sm-inline d-none">Logout</span>
+                    </a>
+                    @endauth
+                    {{-- show if user not login --}}
+                    @if(!auth()->check())
+                        <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        </a>
+                    @endif
+                    {{-- <a class="nav-icon position-relative text-decoration-none" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                    </a> --}}
                     <!-- Button trigger modal -->
                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Launch demo modal
@@ -490,6 +503,7 @@ https://templatemo.com/tm-559-zay-shop
   </script>
   <!-- End Slider Script -->
 
+  
   {{-- Jquery JSON --}}
   <script>
 
@@ -502,7 +516,7 @@ https://templatemo.com/tm-559-zay-shop
     // eye cart
     function productView(id) {
         
-        alert(id); // testing
+        // alert(id); // testing
 
         $.ajax({
             type: 'GET',
@@ -551,7 +565,6 @@ https://templatemo.com/tm-559-zay-shop
                 const Toastr = Swal.mixin({
                     toast:true,
                     position: 'top-end',
-                    icon: 'success',
                     // title: 'Your work has been saved',
                     showConfirmButton: false,
                     timer: 5000
@@ -559,11 +572,13 @@ https://templatemo.com/tm-559-zay-shop
                 if ($.isEmptyObject(data.error)) {
                     Toastr.fire({
                     type: 'success',
+                    icon: 'success',
                     title: data.success,
                     })
                 } else {
                     Toastr.fire({
                     type: 'error',
+                    icon: 'error',
                     title: data.error,
                     })
             }
@@ -667,12 +682,17 @@ https://templatemo.com/tm-559-zay-shop
 </script>
 
 {{-- Wishlist function --}}
-<script>
+<script type="text/javascript">
+    
     function wishlist(product_id) {
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "/wishlist/"+ product_id,
+            headers: {
+                "Accept": "application/json",
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
             success: function(data) {
                 
                 // console.log(data);

@@ -1,6 +1,7 @@
-@extends('homepage.main')
+@extends('main')
 
-@section('content')
+
+@section('main_content')
 
     {{-- @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">

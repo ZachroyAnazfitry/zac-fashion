@@ -7,6 +7,7 @@ use App\Models\Products;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 class CartController extends Controller
 {
@@ -43,42 +44,46 @@ class CartController extends Controller
         //     return response()->json(['error' => 'Product not found.'], 404);
         // }
 
-        // for price
-        if ($products->discount_price == NULL) {
-            Cart::add([
-                'id' => $id,
-                'name' => $request->products_name,
-                // 'qty' => $request->quantity,
-                'price' => $products->price,
-                'qty' => '1',
-                'weight' => 1,
-                'options' => [
-                    // 'size' => $request->size,
-                    'picture' => $products->picture,
-                    'color' => $request->color,
-                ]
-            ]);
+        if (Auth::check()) {
+            // for price
+            if ($products->discount_price == NULL) {
+                Cart::add([
+                    'id' => $id,
+                    'name' => $request->products_name,
+                    // 'qty' => $request->quantity,
+                    'price' => $products->price,
+                    'qty' => '1',
+                    'weight' => 1,
+                    'options' => [
+                        // 'size' => $request->size,
+                        'picture' => $products->picture,
+                        'color' => $request->color,
+                    ]
+                ]);
 
-            return response()->json(['success' => 'Products successfully added.']);
+                return response()->json(['success' => 'Products successfully added.']);
+            } else {
+                Cart::add([
+                    'id' => $id,
+                    'name' => $request->products_name,
+                    'price' => $products->discount_price,
+                    'weight' => 1,
+                    // 'qty' => $request->quantity,
+                    'qty' => '1',
+                    // 'size' => $request->size,
+                    'options' => [
+                        // 'size' => $request->size,
+                        'picture' => $products->picture,
+                        'color' => $request->input('color'),
+                    ]
+                ]);
+
+                return response()->json(['success' => 'Products successfully added into your cart.']);
+            }
         } else {
-            Cart::add([
-                'id' => $id,
-                'name' => $request->products_name,
-                'price' => $products->discount_price,
-                'weight' => 1,
-                // 'qty' => $request->quantity,
-                'qty' => '1',
-                // 'size' => $request->size,
-                'options' => [
-                    // 'size' => $request->size,
-                    'picture' => $products->picture,
-                    'color' => $request->input('color'),
-                ]
-            ]);
-
-            return response()->json(['success' => 'Products successfully added into your cart.']);
+            return response()->json(['error' => 'Please login first before shopping.']);
         }
-               
+                 
     }
 
     public function miniCart()

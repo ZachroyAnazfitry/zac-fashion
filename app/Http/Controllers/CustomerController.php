@@ -13,7 +13,7 @@ class CustomerController extends Controller
 
     public function customerPage()
     {
-        return view('homepage.customer-main')->with('message', "You're logged in. Let's shopping!!");
+        return view('landing-page')->with('message', "You're logged in. Let's shopping!!");
     }
 
     public function destroy(Request $request): RedirectResponse
