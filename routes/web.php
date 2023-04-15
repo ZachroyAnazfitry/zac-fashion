@@ -134,6 +134,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/customer/logout',[CustomerController::class, 'destroy'])->name('customer.logout');
     Route::get('/customer/profile',[CustomerController::class, 'customerProfile'])->name('customer.profile');
     Route::put('/customer/profile/edit',[CustomerController::class, 'customerEditProfile'])->name('customer.edit');
+    Route::get('/customer/wishlist', [WishlistController::class, 'customerWishlist'])->name('customer.wishlist');
+    Route::get('/get/wishlist', [WishlistController::class, 'getWishlist']);
+    Route::get('/wishlist/remove/{id}', [WishlistController::class, 'removeWishlist']);
+
+
     
 });
 

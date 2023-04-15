@@ -154,6 +154,12 @@ https://templatemo.com/tm-559-zay-shop
                     {{-- show if user not login --}}
                     @auth
 
+                     {{-- Wishlist --}}
+                      <a class="nav-icon position-relative text-decoration-none" href="{{ route('customer.wishlist') }}">
+                        <i class="fa fa-fw fa-heart text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark" id="countWishlist"></span>
+                    </a>
+
                     {{-- mini cart --}}
                     <div class="dropdown" >
                         <a class="nav-link dropdown-toggle nav-icon position-relative text-decoration-none" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -182,6 +188,7 @@ https://templatemo.com/tm-559-zay-shop
                         </ul>                           
                         
                     </div>
+
                     {{-- <a class="nav-icon position-relative text-decoration-none" href="#">
                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                         <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
@@ -532,7 +539,7 @@ https://templatemo.com/tm-559-zay-shop
     function addToCart(id) {
 
         // alert(id); // testing
-        event.preventDefault(); // prevent default form submission behavior
+        // event.preventDefault(); // prevent page reload
 
         var products_name = $('#products_name').text();
         // var productId = id;
@@ -567,7 +574,7 @@ https://templatemo.com/tm-559-zay-shop
                     position: 'top-end',
                     // title: 'Your work has been saved',
                     showConfirmButton: false,
-                    timer: 5000
+                    timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toastr.fire({
@@ -658,7 +665,7 @@ https://templatemo.com/tm-559-zay-shop
                     icon: 'success',
                     // title: 'Your work has been saved',
                     showConfirmButton: false,
-                    timer: 5000
+                    timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toastr.fire({
@@ -694,7 +701,7 @@ https://templatemo.com/tm-559-zay-shop
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             },
             success: function(data) {
-                
+                getWishlist();
                 // console.log(data);
 
                 // sweetalert
@@ -703,7 +710,7 @@ https://templatemo.com/tm-559-zay-shop
                     position: 'top-end',
                     // title: 'Your work has been saved',
                     showConfirmButton: false,
-                    timer: 5000
+                    timer: 3000
                 })
                 if ($.isEmptyObject(data.error)) {
                     Toastr.fire({
@@ -726,6 +733,99 @@ https://templatemo.com/tm-559-zay-shop
 
         })
     }
+</script>
+
+{{-- Wishlist data --}}
+<script type="text/javascript">
+    
+    function getWishlist() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/get/wishlist/",
+            headers: {
+                "Accept": "application/json",
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            success: function(response) {
+
+                // for count
+                $('#countWishlist').text(response.wishcount);
+
+                // create empty variable
+                var rows = ""
+
+                // access
+                $.each(response.wishlist, function(key, value) {
+
+                    rows += 
+                    `
+                    <tr>
+                        <td width="45%">
+                            <div class="display-flex align-center">
+                                <div class="img-product">
+                                    <img src="/${value.product.picture}" alt="" class="mCS_img_loaded">
+                                </div>
+                                <div class="name-product">
+                                    ${value.product.products_name}
+                                </div>
+                            </div>
+                        </td>
+                        <td width="15%" class="price">
+                            ${value.product.discount_price == null ? `<h3>RM${value.product.price}</h3>` : `<h3>RM${value.product.price}</h3>`}
+                        </td>
+                        <td width="15%"><span class="in-stock-box">
+                            ${value.product.quantity > 0 ? `<span class="in-stock-box">In Stock</span>` : `<h3><span class="out-stock-box">Out of Stock</span></h3>`}
+                            </span></td>
+                        <td width="15%"><button class="round-black-btn small-btn">Add to Cart</button></td>
+                        <td width="10%" class="text-center"><a type="submit" onclick="removeWishlist(this.id)" id="${value.id}" class="trash-icon"><i class="far fa-trash-alt"></i></a></td>
+                    </tr>
+                    `
+                });
+                $('#wishList').html(rows);  
+            }
+        })   
+    }
+
+    getWishlist();
+
+// remove wishlist
+function removeWishlist(id) {
+
+    $.ajax({
+            type: "GET",
+            url: '/wishlist/remove/' + id,
+            dataType:'json',
+            success: function(data) {
+                getWishlist()  
+                // console.log(data);
+
+                // sweetalert
+                const Toastr = Swal.mixin({
+                    toast:true,
+                    position: 'top-end',
+                    icon: 'success',
+                    // title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toastr.fire({
+                    type: 'success',
+                    title: data.success,
+                    })
+                } else {
+                    Toastr.fire({
+                    type: 'error',
+                    title: data.error,
+                    })
+            }
+            },
+            
+        });
+    
+}
+
 </script>
 
 </body>

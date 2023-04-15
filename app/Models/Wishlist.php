@@ -11,4 +11,9 @@ class Wishlist extends Model
 
     // make all field are fillable
     protected $guarded = [];
+
+    public function product()
+    {
+        return $this->belongsTo(Products::class, 'product_id','id');
+    }
 }
