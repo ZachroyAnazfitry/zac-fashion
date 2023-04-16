@@ -43,6 +43,10 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/') }}/assets/css/slick.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/') }}/assets/css/slick-theme.css">
+
+    {{-- Stripe SDK--}}
+    <script src="https://js.stripe.com/v3/"></script>
+
 <!--
     
 TemplateMo 559 Zay Shop

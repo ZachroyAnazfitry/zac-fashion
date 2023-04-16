@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\VendorProductsController;
@@ -142,6 +143,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/cart/remove/{rowId}', [CartController::class, 'removeCart']);
     Route::get('/checkout', [CartController::class, 'checkoutProducts'])->name('checkout');
     Route::post('/checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
+    Route::post('/checkout/stripe', [StripeController::class, 'checkoutStripe'])->name('checkout.stripe.order');
 
 
 
