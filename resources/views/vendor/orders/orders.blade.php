@@ -71,9 +71,7 @@
                      </td>
                      <td>{{ date('F j, Y', strtotime($order['order']->order_date)) }}</td>
                      <td>
-                       <a href="" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa-solid fa-eye"></i></a>
-              
-                         
+                       <a href="" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa-solid fa-eye"></i></a>   
                       </td>
                   </tr>
                     

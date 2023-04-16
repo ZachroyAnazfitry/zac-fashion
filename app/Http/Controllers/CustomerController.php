@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
+
 
 class CustomerController extends Controller
 {
@@ -65,5 +71,20 @@ class CustomerController extends Controller
 
         return back();
         // return back()->with('success', "Profile updated successfully!");
+    }
+
+    public function orderInvoice($order_id)
+    {
+
+        $order = Order::with('user')->where('id', $order_id)->where('user_id', Auth::id())->first();
+        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id','DESC')->get();;
+    //    return view("homepage.orderDetails", compact('order','orderItem'));
+        
+        $carts = Cart::content();
+        $cartQuantity = Cart::count();
+        $cartTotal = Cart::total();
+
+        $pdf = Pdf::loadView('homepage.orderInvoice', compact('order','orderItem','carts','cartQuantity','cartTotal'))->setPaper('a4');
+        return $pdf->download('Invoice.pdf');
     }
 }

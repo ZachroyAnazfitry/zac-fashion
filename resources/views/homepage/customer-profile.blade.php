@@ -28,7 +28,7 @@
               <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Security</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Billing</button>
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Orders</button>
             </li>
         </ul>
         <hr class="mt-0 mb-4">
@@ -211,7 +211,61 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">fsdlf</div>
+            {{-- Orders --}}
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="col-xl-12">
+                    <!-- Order table-->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Your Orders</div>
+
+                        @php
+                            $id = Auth::user()->id;
+                            $orders = App\Models\Order::where('user_id', $id)->orderBy('id', 'DESC')->get();
+                        @endphp
+                        <div class="card-body text-center">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                  <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Invoice No.</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ date('F j, Y', strtotime($order->order_date)) }}</td>
+                                        <td>{{ $order->invoice_number }}</td>
+                                        <td>
+                                            @if ($order->status == 'Pending')
+                                                <span class="badge rounded-pill bg-warning">{{ $order->status }}</span>
+                                            @elseif ($order->status == 'Confirmed')
+                                                 <span class="badge rounded-pill bg-info">{{ $order->status }}</span>
+                                            @elseif ($order->status == 'Processing')
+                                                <span class="badge rounded-pill bg-danger">{{ $order->status }}</span>
+                                            @elseif ($order->status == 'Delivered')
+                                                <span class="badge rounded-pill bg-success">{{ $order->status }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa fa-eye"></i> View</a>   
+                                            <a href="{{ route('customer.invoice', $order->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa fa-download"></i> Invoice</a>   
+                                        </td>
+                                      </tr>
+                                        
+                                    @endforeach
+                                 
+                                </tbody>
+                              </table>
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

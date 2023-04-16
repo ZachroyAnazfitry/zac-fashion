@@ -158,11 +158,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/checkout/stripe', [StripeController::class, 'checkoutStripe'])->name('checkout.stripe.order');
     Route::post('/checkout/cash', [StripeController::class, 'checkoutCash'])->name('checkout.cash.order');
 
+    // invoice
+    Route::get('/customer/invoice/{order_id}',[CustomerController::class, 'orderInvoice'])->name('customer.invoice');
 
-
-
-
-    
 });
 
 // login page for the 3 roles without authentication permission
