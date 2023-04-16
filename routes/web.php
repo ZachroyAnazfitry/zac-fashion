@@ -133,6 +133,12 @@ Route::middleware(['auth', 'role:vendor'])->group(function () {
         
     });
 
+    // Orders
+    Route::controller(OrdersController::class)->group(function () {
+        Route::get('/vendor/orders', 'showOrdersVendor')->name('vendor.orders');
+        
+    });
+
 });
 
 // Customer routes
