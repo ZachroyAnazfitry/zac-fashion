@@ -177,7 +177,6 @@ class CartController extends Controller
        $checkout['country'] = $request->country;
        $checkout['state'] = $request->state;
        $checkout['zip'] = $request->zip;
-       $checkout['country'] = $request->country;
        $checkout['paymentMethod'] = $request->paymentMethod;
        $cartTotal = Cart::total();
 

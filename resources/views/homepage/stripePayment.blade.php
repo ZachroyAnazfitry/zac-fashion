@@ -90,6 +90,18 @@
             Credit or debit card
             </label>
 
+            <input type="hidden" name="firstName" value="{{ $checkout['firstName'] }}">
+            <input type="hidden" name="lastName" value="{{ $checkout['lastName'] }}">
+            <input type="hidden" name="phone" value="{{ $checkout['phone'] }}">
+            <input type="hidden" name="username" value="{{ $checkout['username'] }}">
+            <input type="hidden" name="email" value="{{ $checkout['email'] }}">
+            <input type="hidden" name="address" value="{{ $checkout['address'] }}">
+            <input type="hidden" name="address2" value="{{ $checkout['address2'] }}">
+            <input type="hidden" name="country" value="{{ $checkout['country'] }}">
+            <input type="hidden" name="state" value="{{ $checkout['state'] }}">
+            <input type="hidden" name="zip" value="{{ $checkout['zip'] }}">
+           
+
             <div id="card-element">
             <!-- A Stripe Element will be inserted here. -->
             </div>

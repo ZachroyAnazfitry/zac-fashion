@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
 
 class StripeController extends Controller
 {
@@ -22,17 +28,56 @@ class StripeController extends Controller
         'currency' => 'myr',
         'description' => 'Example charge',
         'source' => $token,
-        'metadata' => ['order_id' => '6735'],
+        'metadata' => ['order_id' => uniqid()],
         ]);
 
-        // $stripe = new \Stripe\StripeClient("sk_test_51MxLRRF1l0oQf2qDEmC5OTkyLCjlQpJtmSStZQCYyxWoN0fz2Q1JXLthaFvmfsoUEc8pBPLGyGgcfS8c7TsiJWQu00b1Y46CT4");
-        // $stripe->charges->create([
-        // "amount" => 2000,
-        // "currency" => "myr",
-        // "source" => "tok_mastercard", // obtained with Stripe.js
-        // "metadata" => ["order_id" => "6735"]
-        // ]);
-
         // dd($charge);
+
+        $order_id = Order::insertGetId([
+            'user_id' =>Auth::id(),
+            'firstName' =>$request->firstName,
+            'lastName' =>$request->lastName,
+            'phone' =>$request->phone,
+            'username' =>$request->username,
+            'email' =>$request->email,
+            'address' =>$request->address,
+            'address2' =>$request->address2,
+            'country' =>$request->country,
+            'state' =>$request->state,
+            'zip' =>$request->zip,
+
+            'paymentMethod' =>$charge->payment_method,
+            'transaction_id' =>$charge->balance_transaction,
+            'currency' =>$charge->currency,
+            'amount' =>$charge->amount,
+            'order_number' =>$charge->metadata->order_id,
+            'invoice_number' =>'ZF'.mt_rand(10000000,99999999),
+            'order_date' =>Carbon::now()->format('dMY'),
+            'order_month' =>Carbon::now()->format('M'),
+            'order_year' =>Carbon::now()->format('Y'),
+            'status' =>'Pending',
+            'created_at' =>Carbon::now(),
+
+        ]);
+
+        $carts = Cart::content();
+        foreach ($carts as $cart) {
+            OrderItem::insert([
+                'order_id' => $order_id,
+                'product_id' => $cart->id,
+                'vendor_id' => $cart->options->vendor_id,
+                'color' => $cart->options->color,
+                'quantity' => $cart->qty,
+                'price' => $cart->price,
+                'created_at' =>Carbon::now(),
+            ]);
+        }
+
+        // empty the cart after checkout
+        Cart::destroy();
+
+        session()->flash('success', 'Your order had been placed.');
+        return redirect('/category/details/all');
+
     }
 }

@@ -142,7 +142,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/cart-page', [CartController::class, 'getCart']);
     Route::get('/cart/remove/{rowId}', [CartController::class, 'removeCart']);
     Route::get('/checkout', [CartController::class, 'checkoutProducts'])->name('checkout');
-    Route::post('/checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
+    Route::get('/checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
     Route::post('/checkout/stripe', [StripeController::class, 'checkoutStripe'])->name('checkout.stripe.order');
 
 

@@ -133,7 +133,7 @@
                                 $vendor = App\Models\User::where('status','active')->where('role', 'vendor')->find($vendor_id);
                         @endphp
                         @if ($vendor)
-                            <a class="dropdown-item" id="vendor_id" href="{{ url('/vendor/details/'.$vendor->id) }}">By: {{  Str::ucfirst($vendor->name)  }}</a>
+                        By: <a class="dropdown-item" id="vendor_id" href="{{ url('/vendor/details/'.$vendor->id) }}">{{  Str::ucfirst($vendor->id)  }}</a>
                         @endif
 
                         @if ($products_details->discount_price == NULL)
