@@ -8,6 +8,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SliderController;
@@ -97,7 +98,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/slider/edit/{id}', 'editslider')->name('slider.edit');
         Route::put('/slider/update/{id}', 'updateNewSlider')->name('slider.update');
         Route::get('/slider/delete/{id}', 'deleteSlider')->name('slider.delete');
+    });
 
+    // Orders
+    Route::controller(OrdersController::class)->group(function () {
+        Route::get('/orders', 'showOrders')->name('orders');
+        
     });
     
 });
