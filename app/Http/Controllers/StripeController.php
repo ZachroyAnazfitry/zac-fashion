@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
+use Illuminate\Support\Facades\Mail;
 
 class StripeController extends Controller
 {
@@ -63,6 +64,24 @@ class StripeController extends Controller
 
         ]);
 
+        // sending email to Mailtrap
+
+        // pass data
+        $invoice = Order::findOrFail( $order_id );
+
+        $data = [
+            'invoice_number' => $invoice->invoice_number,
+            'amount' => $total_amount,
+            'firstName' => $invoice->firstName,
+            'email' => $invoice->email,
+            'phone' => $invoice->phone,
+            'address' => $invoice->address,
+            'zip' => $invoice->zip,
+
+        ];
+
+        Mail::to($request->email)->send(new OrderMail($data));
+
         $carts = Cart::content();
         foreach ($carts as $cart) {
             OrderItem::insert([
@@ -115,6 +134,24 @@ class StripeController extends Controller
             'created_at' =>Carbon::now(),
 
         ]);
+
+        // sending email to Mailtrap
+
+        // pass data
+        $invoice = Order::findOrFail( $order_id );
+
+        $data = [
+            'invoice_number' => $invoice->invoice_number,
+            'amount' => $total_amount,
+            'firstName' => $invoice->firstName,
+            'email' => $invoice->email,
+            'phone' => $invoice->phone,
+            'address' => $invoice->address,
+            'zip' => $invoice->zip,
+
+        ];
+
+        Mail::to($request->email)->send(new OrderMail($data));
 
         $carts = Cart::content();
         foreach ($carts as $cart) {
