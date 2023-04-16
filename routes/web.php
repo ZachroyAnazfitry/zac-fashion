@@ -140,6 +140,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/customer/mycart', [CartController::class, 'myCart'])->name('mycart');
     Route::get('/cart-page', [CartController::class, 'getCart']);
     Route::get('/cart/remove/{rowId}', [CartController::class, 'removeCart']);
+    Route::get('/checkout', [CartController::class, 'checkoutProducts'])->name('checkout');
+
 
 
 

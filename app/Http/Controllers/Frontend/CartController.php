@@ -134,4 +134,31 @@ class CartController extends Controller
         // pass the variables
         return response()->json(['success' => 'Product successfully removed from your cart.']);
     }
+
+    public function checkoutProducts()
+    {
+
+        if (Auth::check()) {
+
+            // condition to check atleast 1 product exist
+            if (Cart::total() > 0) {
+                // get data
+                $carts = Cart::content();
+                $cartQuantity = Cart::count();
+                $cartTotal = Cart::total();
+
+                return view('homepage.checkout', compact('carts', 'cartQuantity', 'cartTotal'));
+            } else {
+
+                session()->flash('error', 'Need at least one product to checkout.');
+                return back();
+
+            }
+            
+        } else {
+            session()->flash('message', 'Please login to proceed.');
+        }
+        
+        return redirect()->route('login');
+    }
 }

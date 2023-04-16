@@ -255,7 +255,8 @@
                         </form>
 
                         <div class="text-center">
-                            <a href="#"><button type="button" class="btn btn-info text-center" onclick="history.back()">Back</button>
+                            <a href="/category/details/all"><button type="button" class="btn btn-info text-center" >Back</button>
+                                {{-- onclick="history.back()" --}}
                         </div>
 
                     </div>
