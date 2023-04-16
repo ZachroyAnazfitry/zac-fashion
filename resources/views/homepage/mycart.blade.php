@@ -16,7 +16,7 @@
                             <th>Product Name</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Subtotal</th>
-                            <th class="text-center">Discount</th>
+                            {{-- <th class="text-center">Discount</th> --}}
                             <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a></th>
                         </tr>
                     </thead>
@@ -57,7 +57,7 @@
                         <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>
                     </form>
                 </div>
-                <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>
+                <div class="column text-lg">Subtotal: <span class="text-medium">{{$cartTotal}}</span></div>
             </div>
             <div class="shopping-cart-footer">
                 <div class="column"><a class="btn btn-outline-secondary" href="/category/details/all"><i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>

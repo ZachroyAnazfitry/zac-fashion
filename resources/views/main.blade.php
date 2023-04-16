@@ -874,8 +874,7 @@ function removeWishlist(id) {
                                     </select>
                                 </div>
                             </td>
-                            <td class="text-center text-lg text-medium">$43.90</td>
-                            <td class="text-center text-lg text-medium">$18.00</td>
+                            <td class="text-center text-lg text-medium">RM${value.price}</td>
                             <td class="text-center"><a class="remove-from-cart" type="submit" id="${value.rowId}" onclick="cartRemove(this.id)" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
                         </tr>
                         `

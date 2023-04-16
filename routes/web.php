@@ -144,6 +144,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/checkout', [CartController::class, 'checkoutProducts'])->name('checkout');
     Route::get('/checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
     Route::post('/checkout/stripe', [StripeController::class, 'checkoutStripe'])->name('checkout.stripe.order');
+    Route::post('/checkout/cash', [StripeController::class, 'checkoutCash'])->name('checkout.cash.order');
 
 
 

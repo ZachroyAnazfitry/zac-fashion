@@ -67,7 +67,8 @@ class CartController extends Controller
                 Cart::add([
                     'id' => $id,
                     'name' => $request->products_name,
-                    'price' => $products->discount_price,
+                    'price' => $products->price,
+                    // 'price' => $products->discount_price,
                     'weight' => 1,
                     // 'qty' => $request->quantity,
                     'qty' => '1',
@@ -112,7 +113,10 @@ class CartController extends Controller
 
     public function myCart()
     {
-        return view('homepage.mycart');
+        $carts = Cart::content();
+        $cartQuantity = Cart::count();
+        $cartTotal = Cart::total();
+        return view('homepage.mycart', compact('carts','cartQuantity', 'cartTotal'));
     }
 
     public function getCart()
@@ -166,6 +170,11 @@ class CartController extends Controller
 
     public function checkoutStore(Request $request)
     {
+
+        $carts = Cart::content();
+        $cartQuantity = Cart::count();
+        $cartTotal = Cart::total();
+
        $checkout = array();
        $checkout['firstName'] = $request->firstName;
        $checkout['lastName'] = $request->lastName;
@@ -187,7 +196,7 @@ class CartController extends Controller
         return view('homepage.creditPayment', compact('checkout','cartTotal'));
     }
     else {
-        return view('homepage.cashPayment', compact('checkout','cartTotal'));
+        return view('homepage.cashPayment', compact('checkout','cartTotal','carts','cartQuantity','cartTotal'));
     }
 
     

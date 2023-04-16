@@ -33,6 +33,9 @@ class StripeController extends Controller
 
         // dd($charge);
 
+        $total_amount = round(Cart::total());
+
+
         $order_id = Order::insertGetId([
             'user_id' =>Auth::id(),
             'firstName' =>$request->firstName,
@@ -49,8 +52,61 @@ class StripeController extends Controller
             'paymentMethod' =>$charge->payment_method,
             'transaction_id' =>$charge->balance_transaction,
             'currency' =>$charge->currency,
-            'amount' =>$charge->amount,
+            'amount' =>$total_amount,
             'order_number' =>$charge->metadata->order_id,
+            'invoice_number' =>'ZF'.mt_rand(10000000,99999999),
+            'order_date' =>Carbon::now()->format('dMY'),
+            'order_month' =>Carbon::now()->format('M'),
+            'order_year' =>Carbon::now()->format('Y'),
+            'status' =>'Pending',
+            'created_at' =>Carbon::now(),
+
+        ]);
+
+        $carts = Cart::content();
+        foreach ($carts as $cart) {
+            OrderItem::insert([
+                'order_id' => $order_id,
+                'product_id' => $cart->id,
+                'vendor_id' => $cart->options->vendor_id,
+                'color' => $cart->options->color,
+                'quantity' => $cart->qty,
+                'price' => $cart->price,
+                'created_at' =>Carbon::now(),
+            ]);
+        }
+
+        // empty the cart after checkout
+        Cart::destroy();
+
+        session()->flash('success', 'Your order had been placed.');
+        return redirect('/category/details/all');
+
+    }
+
+    public function checkoutCash(Request $request)
+    {
+        
+        $total_amount = round(Cart::total());
+
+        $order_id = Order::insertGetId([
+            'user_id' =>Auth::id(),
+            'firstName' =>$request->firstName,
+            'lastName' =>$request->lastName,
+            'phone' =>$request->phone,
+            'username' =>$request->username,
+            'email' =>$request->email,
+            'address' =>$request->address,
+            'address2' =>$request->address2,
+            'country' =>$request->country,
+            'state' =>$request->state,
+            'zip' =>$request->zip,
+
+            'paymentMethod' =>'Cash on Delivery',
+            // 'transaction_id' =>$charge->balance_transaction,
+            'currency' =>'myr',
+            'amount' =>$total_amount,
+            // 'order_number' =>$charge->metadata->order_id,
             'invoice_number' =>'ZF'.mt_rand(10000000,99999999),
             'order_date' =>Carbon::now()->format('dMY'),
             'order_month' =>Carbon::now()->format('M'),
