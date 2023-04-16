@@ -161,4 +161,35 @@ class CartController extends Controller
         
         return redirect()->route('login');
     }
+
+    public function checkoutStore(Request $request)
+    {
+       $checkout = array();
+       $checkout['firstName'] = $request->firstName;
+       $checkout['lastName'] = $request->lastName;
+       $checkout['phone'] = $request->phone;
+       $checkout['username'] = $request->username;
+       $checkout['email'] = $request->email;
+       $checkout['address'] = $request->address;
+       $checkout['address2'] = $request->address2;
+       $checkout['country'] = $request->country;
+       $checkout['state'] = $request->state;
+       $checkout['zip'] = $request->zip;
+       $checkout['country'] = $request->country;
+       $checkout['paymentMethod'] = $request->paymentMethod;
+       $cartTotal = Cart::total();
+
+    //    condition for payment method
+    if ($request->paymentMethod == 'stripe') {
+        return view('homepage.stripePayment', compact('checkout','cartTotal'));
+    } elseif($request->paymentMethod == 'credit'){
+        return view('homepage.creditPayment', compact('checkout','cartTotal'));
+    }
+    else {
+        return view('homepage.cashPayment', compact('checkout','cartTotal'));
+    }
+
+    
+
+    }
 }
