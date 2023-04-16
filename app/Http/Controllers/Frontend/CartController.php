@@ -58,6 +58,7 @@ class CartController extends Controller
                         // 'size' => $request->size,
                         'picture' => $products->picture,
                         'color' => $request->color,
+                        'vendor_id' => $request->vendor_id,
                     ]
                 ]);
 
@@ -75,6 +76,7 @@ class CartController extends Controller
                         // 'size' => $request->size,
                         'picture' => $products->picture,
                         'color' => $request->input('color'),
+                        'vendor_id' => $request->vendor_id,
                     ]
                 ]);
 

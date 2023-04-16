@@ -551,10 +551,13 @@ https://templatemo.com/tm-559-zay-shop
         var color = $('#color').text();
         // var size = $('#size').text();
         var quantity = $('.quantity').val();
+        var vendor_id = $('#vendor_id').text();
+
 
         console.log(price);
         console.log(color);
         console.log(quantity);
+        console.log(vendor_id);
 
         $.ajax({
             type: 'POST',
@@ -567,6 +570,7 @@ https://templatemo.com/tm-559-zay-shop
                 quantity:quantity,
                 color:color, 
                 price: price,
+                vendor_id: vendor_id,
 
             },
             success: function(data) {

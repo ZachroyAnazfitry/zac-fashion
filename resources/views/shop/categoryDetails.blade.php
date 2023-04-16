@@ -84,7 +84,15 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="{{ url('products/details/'.$product->id) }}" class="h3 text-decoration-none">{{$product->products_name}}</a>
+                                <a href="{{ url('products/details/'.$product->id) }}" class="h3 text-decoration-none">{{$product->products_name}}</a> <br>
+                                @php
+                                $vendor_id = $product->vendor_id; // replace 1 with the actual vendor ID you want to display
+                                $vendor = App\Models\User::where('status','active')->where('role', 'vendor')->find($vendor_id);
+                                @endphp
+                                @if ($vendor)
+                                    <a class="dropdown-item" id="vendor_id" href="{{ url('/vendor/details/'.$vendor->id) }}">By: {{  Str::ucfirst($vendor->name)  }}</a>
+                                @endif
+                                
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                     {{-- <li>{{$product->size}}</li> --}}
                                 Size :    

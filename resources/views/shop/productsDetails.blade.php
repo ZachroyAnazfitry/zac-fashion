@@ -128,6 +128,13 @@
                             $discounted = $products_details->price - $amount;
                         @endphp
                         <h1 class="h2" id="products_name">{{ $products_details->products_name }}</h1>
+                        @php
+                                $vendor_id = $products_details->vendor_id; // replace 1 with the actual vendor ID you want to display
+                                $vendor = App\Models\User::where('status','active')->where('role', 'vendor')->find($vendor_id);
+                        @endphp
+                        @if ($vendor)
+                            <a class="dropdown-item" id="vendor_id" href="{{ url('/vendor/details/'.$vendor->id) }}">By: {{  Str::ucfirst($vendor->name)  }}</a>
+                        @endif
 
                         @if ($products_details->discount_price == NULL)
                             <p class="h3 py-2" id="price">RM{{ $products_details->price }}</p>
