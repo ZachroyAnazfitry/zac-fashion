@@ -862,21 +862,11 @@ function removeWishlist(id) {
                                 <div class="product-item">
                                     <a class="product-thumb" href="#"><img src="/${value.options.picture}" alt="Product"></a>
                                     <div class="product-info">
-                                        <h4 class="product-title"><a href="#">${value.name}</a></h4><span><em>Size:</em> 10.5</span><span><em>Color:</em> Dark Blue</span>
+                                        <h4 class="product-title"><a href="#">${value.name}</a></h4><span><em>Size:</em> S</span><span><em>Color:</em> ${value.options.color}</span>
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-center">
-                                <div class="count-input">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                            </td>
+                            <td class="text-center text-lg text-medium">${value.qty}</td>
                             <td class="text-center text-lg text-medium">RM${value.price}</td>
                             <td class="text-center"><a class="remove-from-cart" type="submit" id="${value.rowId}" onclick="cartRemove(this.id)" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
                         </tr>

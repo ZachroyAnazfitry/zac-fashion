@@ -240,27 +240,35 @@ background-color: #f7f7ff;
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No.</th>
                                             <th class="text-left">DESCRIPTION</th>
-                                            <th class="text-right">HOUR PRICE</th>
-                                            <th class="text-right">HOURS</th>
-                                            <th class="text-right">TOTAL</th>
+                                            <th class="text-right">PRODUCT DETAILS</th>
+                                            <th class="text-right">QUANTITY</th>
+                                            <th class="text-right">PRICE (RM)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($orderItem as $item)
+
                                         <tr>
-                                            <td class="no">04</td>
+                                            <td class="no">{{ $loop->iteration }}</td>
                                             <td class="text-left">
                                                 <h3>
-                                                    <a target="_blank" href="javascript:;">Youtube channel</a>
+                                                    <img src="{{ ($item->product->picture) }}" height="50px;" width="50px;" alt="">
+                                                    <span>{{$item->product->products_name}}</span>
+                                                    {{-- <a target="_blank" href="javascript:;">{{$item->product->products_name}}</a> --}}
                                                 </h3>
-                                                <a target="_blank" href="javascript:;">
-                                               Useful videos
-                                           </a> to improve your Javascript skills. Subscribe and stay tuned :</td>
-                                            <td class="unit">$0.00</td>
-                                            <td class="qty">100</td>
-                                            <td class="total">$0.00</td>
+                                            </td>
+                                            <td class="description">
+                                                {{$item->product->description}}
+                                                {{$item->product->color}}
+                                            </td>
+                                            <td class="qty">1</td>
+                                            <td class="price">RM {{$item->product->price}}</td>
                                         </tr>
+                                            
+                                        @endforeach
+                                       
                                         
                                     </tbody>
                                     <tfoot>
@@ -281,15 +289,17 @@ background-color: #f7f7ff;
                                         <tr>
                                             <td colspan="2"></td>
                                             <td colspan="2">GRAND TOTAL</td>
-                                            <td>{{$cartTotal}}</td>
+                                            <td>RM {{$cartTotal}}</td>
                                         </tr>
+
                                     </tfoot>
                                 </table>
-                                <div class="notices">
-                                    <div class="thanks mb-5">Thank you!</div>
+                                <div class="notices mt-5">
+                                    <div class="thanks ">Thank you!</div>
                                     <div>NOTICE:</div>
                                     <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                                 </div>
+
                             </main>
                             <footer>Invoice was created on a computer and is valid without the signature and seal.</footer>
                         </div>
