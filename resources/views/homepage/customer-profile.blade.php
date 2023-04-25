@@ -252,7 +252,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa fa-eye"></i> View</a>   
+                                            <a href="{{ route('customer.view', $order->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa fa-eye"></i> View</a>   
                                             <a href="{{ route('customer.invoice', $order->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa fa-download"></i> Invoice</a>   
                                         </td>
                                       </tr>

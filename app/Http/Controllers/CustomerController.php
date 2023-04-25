@@ -73,16 +73,25 @@ class CustomerController extends Controller
         // return back()->with('success', "Profile updated successfully!");
     }
 
+    public function viewOrderDetails()
+    {
+        // trace user_id
+        $order = Order::where('user_id', Auth::id())->first();
+       return view("homepage.viewOrderDetails", compact('order'));
+}
+
     public function orderInvoice($order_id)
     {
+
+        $carts = Cart::content();
+        $cartQuantity = Cart::count();
+        $cartTotal = Cart::total();
 
         $order = Order::with('user')->where('id', $order_id)->where('user_id', Auth::id())->first();
         $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id','DESC')->get();;
     //    return view("homepage.orderDetails", compact('order','orderItem'));
         
-        $carts = Cart::content();
-        $cartQuantity = Cart::count();
-        $cartTotal = Cart::total();
+       
 
         $pdf = Pdf::loadView('homepage.orderInvoice', compact('order','orderItem','carts','cartQuantity','cartTotal'))->setPaper('a4');
         return $pdf->download('Invoice.pdf');

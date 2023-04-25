@@ -255,6 +255,7 @@ background-color: #f7f7ff;
                                             <td class="text-left">
                                                 <h3>
                                                     <img src="{{ ($item->product->picture) }}" height="50px;" width="50px;" alt="">
+                                                    <br>
                                                     <span>{{$item->product->products_name}}</span>
                                                     {{-- <a target="_blank" href="javascript:;">{{$item->product->products_name}}</a> --}}
                                                 </h3>

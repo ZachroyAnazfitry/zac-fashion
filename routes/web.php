@@ -157,6 +157,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
     Route::post('/checkout/stripe', [StripeController::class, 'checkoutStripe'])->name('checkout.stripe.order');
     Route::post('/checkout/cash', [StripeController::class, 'checkoutCash'])->name('checkout.cash.order');
+    Route::get('/customer/view/{id}',[CustomerController::class, 'viewOrderDetails'])->name('customer.view');
 
     // invoice
     Route::get('/customer/invoice/{order_id}',[CustomerController::class, 'orderInvoice'])->name('customer.invoice');
@@ -179,6 +180,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+// Routes without middleware
 
 // Landing page routes
 Route::get('/shop', [ShopController::class, 'viewShop'])->name('shop.products');
