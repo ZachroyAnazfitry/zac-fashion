@@ -71,7 +71,9 @@
                                 @endif
                               </td>
                                <td>
-                                <a href="{{ route('orders.details', $order->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('orders.details', $order->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this order details"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('orders.invoice', $order->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Download this order invoice"><i class="fa fa-download"></i> Invoice</a>   
+
                                </td>
                            </tr>
                        @endforeach     

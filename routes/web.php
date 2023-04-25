@@ -107,6 +107,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/orders/pending-confirm/{order_id}', 'pendingToConfirm')->name('orders.pending.confirm');
         Route::get('/orders/confirm-processed/{order_id}', 'confirmToProcessed')->name('orders.confirm.processed');
         Route::get('/orders/processed-delivered/{order_id}', 'processToDelivered')->name('orders.processed.delivered');
+        Route::get('/orders/invoice/{order_id}','orderInvoice')->name('orders.invoice');
+
         
     });
     
