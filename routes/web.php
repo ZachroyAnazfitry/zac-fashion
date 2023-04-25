@@ -103,6 +103,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Orders
     Route::controller(OrdersController::class)->group(function () {
         Route::get('/orders', 'showOrders')->name('orders');
+        Route::get('/orders/details/{order_id}', 'showOrdersDetails')->name('orders.details');
+        Route::get('/orders/pending-confirm/{order_id}', 'pendingToConfirm')->name('orders.pending.confirm');
+        Route::get('/orders/confirm-processed/{order_id}', 'confirmToProcessed')->name('orders.confirm.processed');
+        Route::get('/orders/processed-delivered/{order_id}', 'processToDelivered')->name('orders.processed.delivered');
         
     });
     

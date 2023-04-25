@@ -167,20 +167,52 @@
               </table>
           </div>
           <div class="shopping-cart-footer">
-              <div class="column">
+              {{-- <div class="column">
                   <form class="coupon-form" method="post">
                       <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required="">
                       <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>
                   </form>
-              </div>
+              </div> --}}
               <div class="column text-lg">Subtotal: <span class="text-medium">RM {{ $order->amount }} </span></div>
           </div>
           <div class="shopping-cart-footer">
-              <div class="column"><a class="btn btn-outline-secondary" href="/customer/profile"><i class="icon-arrow-left"></i>&nbsp;Back to Profile</a></div>
-              {{-- <div class="column">
-                  <a class="btn btn-primary" href="#" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Your cart" data-toast-message="is updated successfully!">Update Cart</a>
-                  <a class="btn btn-success" href="{{ route('checkout') }}">Checkout</a>
-              </div> --}}
+
+            <div class="column"><a class="btn btn-outline-secondary" href="/customer/profile"><i class="icon-arrow-left"></i>&nbsp;Back to Profile</a></div>
+
+            @if ($order->status !== 'Delivered')
+
+            @else
+              <div class="column">
+                  {{-- <a class="btn btn-primary" href="#" data-toast="" data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Your cart" data-toast-message="is updated successfully!">Update Cart</a> --}}
+                  {{-- <a class="btn btn-danger" href="{{ route('checkout') }}">Return Order</a> --}}
+                      
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Return Order
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel">Return Order</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          ...
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+            @endif
+
+              </div>
           </div>
       </div>
   </div>

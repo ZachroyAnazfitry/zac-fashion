@@ -31,8 +31,8 @@
                 {{-- Add Sliders --}}
            
                <!-- Link to add products -->
-               <a href="{{ route('slider.add') }}" style="color: white"><button style="width: 40%; margin: 20px 0 20px 10px" type="button" class="btn btn-success">Add New Slider</button>
-               </a>
+               {{-- <a href="{{ route('slider.add') }}" style="color: white"><button style="width: 40%; margin: 20px 0 20px 10px" type="button" class="btn btn-success">Add New Slider</button>
+               </a> --}}
            
              {{-- datatable --}}
                <table id="dataTable" class="table table-striped align-items-center mb-0">
@@ -57,12 +57,21 @@
                                <td class="text-capitalize">{{ $order->invoice_number }}</td>
                                <td class="text-capitalize">RM{{ $order->amount }}</td>
                                <td>
-                                  <span class="badge rounded-pill bg-warning">{{ $order->status }}</span>
+                                @if ($order->status == 'Pending')
+                                  <span class="badge rounded-pill bg-warning">Pending</span>
+                                @endif
+                                @if ($order->status == 'Confirmed')
+                                  <span class="badge rounded-pill bg-info">Confirmed</span>
+                                @endif
+                                @if ($order->status == 'Processing')
+                                  <span class="badge rounded-pill bg-secondary">Processing</span>
+                                @endif
+                                @if ($order->status == 'Delivered')
+                                  <span class="badge rounded-pill bg-success">Delivered</span>
+                                @endif
                               </td>
                                <td>
-                                <a href="" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa-solid fa-eye"></i></a>
-                       
-                                  
+                                <a href="{{ route('orders.details', $order->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this orders details"><i class="fa-solid fa-eye"></i></a>
                                </td>
                            </tr>
                        @endforeach     
