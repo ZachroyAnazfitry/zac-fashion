@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Stripe\Product;
 
 class AdminController extends Controller
 {
@@ -24,7 +28,16 @@ class AdminController extends Controller
 
     public function adminDashboard()
     {
-        return view('admin.index');
+
+        $numberOfUsers = User::where('role', 'user')->count();
+        $numberOfVendors = User::where('role', 'vendor')->count();
+        $products = Products::count();
+        $sales = Order::where('status', 'Delivered')->sum('amount');
+        // $latest_sales = Order::where('status', 'Delivered')->whereDate('created_at', Carbon::today())->sum('amount');
+        $users = User::where('role', 'user')->latest()->get();
+
+        // dd($latest_sales);
+        return view('admin.index', compact('numberOfUsers','products','sales','numberOfVendors','users'));
     }
 
     // for user profile setting
