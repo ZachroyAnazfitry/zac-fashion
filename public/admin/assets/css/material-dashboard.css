@@ -13739,7 +13739,7 @@ body.dark-version {
       box-sizing: border-box;
       display: block;
       height: 0.5rem;
-      width: 0.625rem;
+      width: 0.9rem;
       border-width: 1px 0 0;
       border-color: transparent; }
   .input-group.input-group-outline.is-focused .form-label + .form-control, .input-group.input-group-outline.is-filled .form-label + .form-control {

@@ -20,7 +20,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ route('brands') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">table_view</i>
+              <i class="material-icons opacity-10">checklist</i>
             </div>
             <span class="nav-link-text ms-1">Brands</span>
           </a>
@@ -36,7 +36,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ route('products.manage') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+              <i class="material-icons opacity-10">shopping_bag</i>
             </div>
             <span class="nav-link-text ms-1">Products</span>
           </a>
@@ -44,7 +44,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ route('admin.manage_vendor') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
+              <i class="material-icons opacity-10">manage_accounts</i>
             </div>
             <span class="nav-link-text ms-1">Vendor</span>
           </a>
@@ -52,7 +52,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ route('slider') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
+              <i class="material-icons opacity-10">event_repeat</i>
             </div>
             <span class="nav-link-text ms-1">Slider</span>
           </a>
@@ -60,7 +60,7 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="{{ route('orders') }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
+              <i class="material-icons opacity-10">add_shopping_cart</i>
             </div>
             <span class="nav-link-text ms-1">Orders</span>
           </a>
