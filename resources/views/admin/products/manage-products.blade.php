@@ -41,7 +41,7 @@
        <div class="card-footer p-3">
          {{-- datatable --}}
          <div class="card-body px-0 pb-2">
-           <table id="dataTable" class="table table-striped" style="width:auto">
+           <table id="dataTable" class="table table-striped text-center" style="width:auto">
                <thead>
                    <tr>
                      <th>No.</th>
@@ -87,9 +87,23 @@
                              </td>
                              <td>
                                {{-- applied others design instead of words, use icons from font awesome --}}
-                               <a href="{{ route('products.see', $product->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this products details"><i class="fa-solid fa-eye"></i></a>
-                               <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit this products"><i class="fa-solid fa-pen-to-square"></i></a>
-                               <a href="{{ route('products.delete', $product->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete this products"><i class="fa-solid fas fa-trash"></i></a>
+                                <div class="row">
+                                    <div class="col mb-2">
+                                        <a href="{{ route('products.see', $product->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See this products details"><i class="fa-solid fa-eye"></i></a>
+                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit this products"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    </div>
+                                    <div class="col mb-2">
+                                        <a href="{{ route('products.delete', $product->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete this products"><i class="fa-solid fas fa-trash"></i></a>
+                                        @if ($product->status == 1)
+                                            <a href="{{ route('products.inactive', $product->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deactivate this product"><i class="fa-solid fa-circle-xmark"></i></a>
+                                        @else
+                                            <a href="{{ route('products.active', $product->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Activate this product"><i class="fa-solid fa-check"></i></a>
+                                        @endif
+                                    </div>
+                                </div>
+                          
+                            
+                               
                                {{-- <a href="" type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove this products"><i class="fas fa-trash"></i></a> --}}
                                <!-- Button trigger modal -->
                                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -114,12 +128,7 @@
                                    </div>
                                  </div>
                                </div> --}}
-                               {{-- to change products status --}}
-                               @if ($product->status == 1)
-                                 <a href="{{ route('products.inactive', $product->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deactivate this product"><i class="fa-solid fa-circle-xmark"></i></a>
-                               @else
-                                 <a href="{{ route('products.active', $product->id) }}" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Activate this product"><i class="fa-solid fa-check"></i></a>
-                               @endif
+                               
                            </td>
                          
                          </tr>
