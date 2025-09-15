@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,10 +15,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
   <!-- Material Dashboard CSS -->
-  <link rel="stylesheet" href="assets/css/material-dashboard?v=2.1.2.css">
+  <link rel="stylesheet" href="assets/css/material-dashboard.css">
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  
+
   <!-- Nucleo Icons -->
   <link href="{{ asset('admin/') }}/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="{{ asset('admin/') }}/assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -45,13 +31,13 @@
 
   {{-- bootstrap to link with toastr,also removed twitter-bootstrap --}}
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
-  
+
   {{-- jquery --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   {{-- toastr --}}
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
   {{-- datatable --}}
@@ -66,7 +52,7 @@
 
   {{-- Icons for Actions column in datatable --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -74,7 +60,7 @@
   {{-- @include('sweetalert::alert') --}}
 
   @include('admin.body.aside')
-  
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     @include('admin.body.navbar')
@@ -84,13 +70,13 @@
         @yield('admin')
 
         {{-- @include('name') --}}
-      
+
       {{-- footer --}}
       @include('admin.body.footer')
       {{-- end of footer --}}
     </div>
   </main>
-  
+
   <!--   Core JS Files   -->
   <script src="{{ asset('admin/') }}/assets/js/core/popper.min.js"></script>
   <script src="{{ asset('admin/') }}/assets/js/core/bootstrap.min.js"></script>
@@ -357,7 +343,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('admin/') }}/assets/js/material-dashboard.min.js?v=3.0.0"></script>
-  
+
 
   {{-- toastr --}}
   <script>
@@ -371,7 +357,7 @@
         toastr.success("{{ session('message') }}");
 
     @endif
-  
+
     @if(Session::has('error'))
     toastr.options =
     {
@@ -380,7 +366,7 @@
     }
         toastr.error("{{ session('error') }}");
     @endif
-  
+
     @if(Session::has('info'))
     toastr.options =
     {
@@ -389,7 +375,7 @@
     }
         toastr.info("{{ session('info') }}");
     @endif
-  
+
     @if(Session::has('warning'))
     toastr.options =
     {
@@ -422,7 +408,7 @@
       })
     })
   </script>
-  
+
 </body>
 
 </html>

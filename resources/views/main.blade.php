@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
   <!-- Material Dashboard CSS -->
-  <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/material-dashboard?v=2.1.2.css">
+  <link rel="stylesheet" href="{{ asset('frontend/') }}/assets/css/material-dashboard.css">
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
@@ -33,7 +33,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     {{-- jquery --}}
@@ -51,7 +51,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!--
-    
+
 TemplateMo 559 Zay Shop
 
 https://templatemo.com/tm-559-zay-shop
@@ -85,15 +85,15 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
-    
+
             <a class="navbar-brand text-success logo h1 align-self-center" href="/">
                 Zac Fashion
             </a>
-    
+
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
+
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
@@ -117,7 +117,7 @@ https://templatemo.com/tm-559-zay-shop
                                     @foreach ($categories as $category)
                                         @php
                                             $products = App\Models\Products::where('category_id', '=', $category->id)->get();
-                                        @endphp 
+                                        @endphp
                                         <li><a class="dropdown-item" href="{{ url('category/details/'.$category->id.'/'.$category->category_slug) }}">{{  Str::ucfirst($category->category_name)  }}<span class="badge rounded-circle bg-primary text-white mx-2">{{ count($products) }}</span></a>
                                         </li>
 
@@ -189,11 +189,11 @@ https://templatemo.com/tm-559-zay-shop
                                 </span>
                             </span>
                             </li> --}}
-                             
-                          
-                        </ul> 
-                                                
-                        
+
+
+                        </ul>
+
+
                     </div>
 
                     {{-- <a class="nav-icon position-relative text-decoration-none" href="#">
@@ -223,7 +223,7 @@ https://templatemo.com/tm-559-zay-shop
                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Launch demo modal
                     </button> --}}
-                    
+
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -260,7 +260,7 @@ https://templatemo.com/tm-559-zay-shop
                                         <a href="{{ route('customer.register') }}" class="text-primary text-gradient font-weight-bold">Sign up</a>
                                     </p>
                                     </form>
-                                
+
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
@@ -289,7 +289,7 @@ https://templatemo.com/tm-559-zay-shop
                     </a> --}}
                 </div>
             </div>
-    
+
         </div>
     </nav>
     <!-- Close Header -->
@@ -311,18 +311,18 @@ https://templatemo.com/tm-559-zay-shop
     </div>
 
 
-   
+
     <main>
-          
+
         {{-- @include('main-landing-page') --}}
 
         @yield('main_content')
-    
+
    </main>
 
-   
 
-  
+
+
 
 
     <!-- Start Footer -->
@@ -419,7 +419,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
+                            Copyright &copy; 2021 Company Name
                             | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
                         </p>
                     </div>
@@ -437,7 +437,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="{{ asset('frontend/') }}/assets/js/templatemo.js"></script>
     <script src="{{ asset('frontend/') }}/assets/js/custom.js"></script>
     <!-- End Script -->
-    
+
     {{-- jquery --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     {{-- sweetalert --}}
@@ -453,7 +453,7 @@ https://templatemo.com/tm-559-zay-shop
     }
         toastr.success("{{ session('message') }}");
     @endif
-  
+
     @if(Session::has('error'))
     toastr.options =
     {
@@ -462,7 +462,7 @@ https://templatemo.com/tm-559-zay-shop
     }
         toastr.error("{{ session('error') }}");
     @endif
-  
+
     @if(Session::has('info'))
     toastr.options =
     {
@@ -471,7 +471,7 @@ https://templatemo.com/tm-559-zay-shop
     }
         toastr.info("{{ session('info') }}");
     @endif
-  
+
     @if(Session::has('warning'))
     toastr.options =
     {
@@ -517,7 +517,7 @@ https://templatemo.com/tm-559-zay-shop
   </script>
   <!-- End Slider Script -->
 
-  
+
   {{-- Jquery JSON --}}
   <script>
 
@@ -530,7 +530,7 @@ https://templatemo.com/tm-559-zay-shop
 
     // eye cart
     function productView(id) {
-        
+
         // alert(id); // testing
 
         $.ajax({
@@ -572,7 +572,7 @@ https://templatemo.com/tm-559-zay-shop
                 products_name:products_name,
                 // size:size,
                 quantity:quantity,
-                color:color, 
+                color:color,
                 price: price,
                 vendor_id: vendor_id,
 
@@ -606,7 +606,7 @@ https://templatemo.com/tm-559-zay-shop
                 var errors = data.responseJSON;
                 console.log(errors);
             },
-           
+
         });
 
     }
@@ -631,7 +631,7 @@ https://templatemo.com/tm-559-zay-shop
 
                 // retrieve response as json objects and each() method for looping
                 $.each(response.carts, function(key,value){
-                    miniCart += ` 
+                    miniCart += `
                                         <li>
                                             <span class="item">
                                             <span class="item-left">
@@ -649,17 +649,17 @@ https://templatemo.com/tm-559-zay-shop
                                         </li>
                                         <hr>
                                         <li class="divider"></li>
-                                        <li><a class="text-center" href="{{ route('mycart') }}">View Cart</a></li> 
-                                        
-                                    
+                                        <li><a class="text-center" href="{{ route('mycart') }}">View Cart</a></li>
+
+
                                      `
-                                    
+
                 });
 
                 // pass it
                 $('#miniCart').html(miniCart);
             }
-        })   
+        })
     }
 
     miniCart();
@@ -699,14 +699,14 @@ https://templatemo.com/tm-559-zay-shop
                 var errors = data.responseJSON;
                 console.log(errors);
             },
-            
+
         });
     }
 </script>
 
 {{-- Wishlist function --}}
 <script type="text/javascript">
-    
+
     function wishlist(product_id) {
         $.ajax({
             type: "POST",
@@ -753,7 +753,7 @@ https://templatemo.com/tm-559-zay-shop
 
 {{-- Wishlist data --}}
 <script type="text/javascript">
-    
+
     function getWishlist() {
         $.ajax({
             type: "GET",
@@ -774,7 +774,7 @@ https://templatemo.com/tm-559-zay-shop
                 // access
                 $.each(response.wishlist, function(key, value) {
 
-                    rows += 
+                    rows +=
                     `
                     <tr>
                         <td width="45%">
@@ -798,9 +798,9 @@ https://templatemo.com/tm-559-zay-shop
                     </tr>
                     `
                 });
-                $('#wishList').html(rows);  
+                $('#wishList').html(rows);
             }
-        })   
+        })
     }
 
     getWishlist();
@@ -813,7 +813,7 @@ function removeWishlist(id) {
             url: '/wishlist/remove/' + id,
             dataType:'json',
             success: function(data) {
-                getWishlist()  
+                getWishlist()
                 // console.log(data);
 
                 // sweetalert
@@ -837,9 +837,9 @@ function removeWishlist(id) {
                     })
             }
             },
-            
+
         });
-    
+
 }
 
 </script>
@@ -858,7 +858,7 @@ function removeWishlist(id) {
                 var rows = ""
 
                 $.each(response.carts, function(key,value){
-                    rows += ` 
+                    rows += `
                          <tr>
                             <td>
                                 <div class="product-item">
@@ -873,13 +873,13 @@ function removeWishlist(id) {
                             <td class="text-center"><a class="remove-from-cart" type="submit" id="${value.rowId}" onclick="cartRemove(this.id)" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
                         </tr>
                         `
-                                    
+
                 });
 
                 // pass it
                 $('#cartPage').html(rows);
             }
-        })   
+        })
     }
 
     cart();
@@ -891,8 +891,8 @@ $.ajax({
         url: '/cart/remove/' + id,
         dataType:'json',
         success: function(data) {
-            cart(); 
-            miniCart(); 
+            cart();
+            miniCart();
             // console.log(data);
 
             // sweetalert
@@ -916,7 +916,7 @@ $.ajax({
                 })
         }
         },
-        
+
     });
 
 }
