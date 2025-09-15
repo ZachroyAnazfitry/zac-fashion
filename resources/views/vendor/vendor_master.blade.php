@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,10 +15,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
   <!-- Material Dashboard CSS -->
-  <link rel="stylesheet" href="assets/css/material-dashboard?v=2.1.2.css">
+  <link rel="stylesheet" href="assets/css/material-dashboard.css">
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-  
+
   <!-- Nucleo Icons -->
   <link href="{{ asset('admin/') }}/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="{{ asset('admin/') }}/assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -51,7 +37,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
   {{-- datatable --}}
@@ -70,7 +56,7 @@
 
 <body class="g-sidenav-show  bg-gray-200">
   @include('vendor.vendor-body.aside')
-  
+
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     @include('vendor.vendor-body.navbar')
@@ -78,7 +64,7 @@
     <div class="container-fluid py-4">
 
         @yield('vendor')
-      
+
       {{-- footer --}}
       @include('vendor.vendor-body.footer')
       {{-- end of footer --}}
@@ -434,7 +420,7 @@
     }
         toastr.success("{{ session('message') }}");
     @endif
-  
+
     @if(Session::has('error'))
     toastr.options =
     {
@@ -443,7 +429,7 @@
     }
         toastr.error("{{ session('error') }}");
     @endif
-  
+
     @if(Session::has('info'))
     toastr.options =
     {
@@ -452,7 +438,7 @@
     }
         toastr.info("{{ session('info') }}");
     @endif
-  
+
     @if(Session::has('warning'))
     toastr.options =
     {
