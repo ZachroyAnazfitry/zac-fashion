@@ -1,4 +1,4 @@
-name: Zshop CI
+name: ZFashion CI
 
 on:
   push:
