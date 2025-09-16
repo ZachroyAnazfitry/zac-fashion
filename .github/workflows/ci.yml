@@ -57,7 +57,7 @@ jobs:
     - name: Generate key
       run: php artisan key:generate
 
-    # Check code style for compliance
+    # Check code style for compliance, artisan command not working in GitHub Actions
     - name: Check Code Style (Pint)
       run: /vendor/bin/pint --test
 
