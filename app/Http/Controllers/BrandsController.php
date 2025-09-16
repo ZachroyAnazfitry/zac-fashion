@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Brands;
+use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-
 
 class BrandsController extends Controller
 {
@@ -28,7 +27,7 @@ class BrandsController extends Controller
         // create unique id with its own image extension(jpeg,png)
         $image_generated = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         // resize image by calling image intervention package
-        Image::make($image)->resize(300,300)->save('upload/brand/'.$image_generated);
+        Image::make($image)->resize(300, 300)->save('upload/brand/'.$image_generated);
         $brand_image_url = 'upload/brand/'.$image_generated;
 
         Brands::insert([
@@ -36,7 +35,7 @@ class BrandsController extends Controller
             'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
             'brand_image' => $brand_image_url,
             'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         /**
@@ -44,8 +43,7 @@ class BrandsController extends Controller
          * Example of error - Unsupported image type directory. GD driver is only able to decode JPG, PNG, GIF, BMP or WebP files.
          */
 
-
-        /** 
+        /**
          * below code is not working
          * probably due to undefined url image stored in DB
          */
@@ -89,39 +87,41 @@ class BrandsController extends Controller
         $old_img = $request->old_image;
 
         if ($request->file('brand_image')) {
-             $image = $request->file('brand_image');
-             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-             Image::make($image)->resize(300,300)->save('upload/brand/'.$name_gen);
-             $save_url = 'upload/brand/'.$name_gen;     
-             
-             if (file_exists($old_img)) {
+            $image = $request->file('brand_image');
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300, 300)->save('upload/brand/'.$name_gen);
+            $save_url = 'upload/brand/'.$name_gen;
+
+            if (file_exists($old_img)) {
                 unlink($old_img);
-             }
-     
-             Brands::findOrFail($brand_id)->update([
-                 'brand_name' => strtoupper($request->brand_name),
-                 'brand_slug' => strtolower(str_replace(' ', '-',$request->brand_name)),
-                 'brand_image' => $save_url, 
-             ]);
+            }
+
+            Brands::findOrFail($brand_id)->update([
+                'brand_name' => strtoupper($request->brand_name),
+                'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
+                'brand_image' => $save_url,
+            ]);
 
             session()->flash('success', 'Brands updated!');
+
             return redirect('/brands');
 
         } else {
             Brands::findOrFail($brand_id)->update([
                 'brand_name' => strtoupper($request->brand_name),
-                'brand_slug' => strtolower(str_replace(' ', '-',$request->brand_name)), 
+                'brand_slug' => strtolower(str_replace(' ', '-', $request->brand_name)),
             ]);
 
             session()->flash('success', 'Brands updated!');
+
             return redirect('/brands');
         }
-        
+
     }
 
     public function deleteNewBrands($id)
     {
-    //    delete brand function
+        //    delete brand function
         $brands = Brands::findOrFail($id);
         $brands->delete();
         // session flash

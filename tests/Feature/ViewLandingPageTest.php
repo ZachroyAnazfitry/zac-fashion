@@ -4,12 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\Products;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ViewLandingPageTest extends TestCase
 {
-
     use RefreshDatabase;
     /**
      * A basic feature test example.
@@ -46,23 +44,23 @@ class ViewLandingPageTest extends TestCase
             'sub_category_id' => 1,
             'vendor_id' => 1,
             'products_name' => 'nike1',
-            'products_slug' => 'nike-1' ,
+            'products_slug' => 'nike-1',
             'code' => 'X123',
-            'quantity' =>2,
-            'size' =>'S',
-            'color' =>'purple',
+            'quantity' => 2,
+            'size' => 'S',
+            'color' => 'purple',
             'description' => 'best product ever',
             'price' => 300,
             'discount_price' => 'RM100',
             'picture' => 'upload/products/picture/gambar.jpg',
             'status' => 'active',
-           
+
         ]);
 
-         // act
-         $response = $this->get('/');
+        // act
+        $response = $this->get('/');
 
-         // display this words
+        // display this words
         $response->assertSee($products->products_name);
     }
 }

@@ -9,19 +9,20 @@ class Products extends Model
 {
     use HasFactory;
 
-    protected $guarded = []; 
+    protected $guarded = [];
 
     public function brand()
     {
-        return $this->belongsTo(Brands::class, 'brands_id','id');
+        return $this->belongsTo(Brands::class, 'brands_id', 'id');
     }
+
     public function vendor()
     {
-        return $this->belongsTo(User::class, 'vendor_id','id');
+        return $this->belongsTo(User::class, 'vendor_id', 'id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id','id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

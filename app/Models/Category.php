@@ -11,7 +11,8 @@ class Category extends Model
 
     protected $guarded = []; // make it fillable
 
-    public function products() {
+    public function products()
+    {
         return $this->hasMany(Products::class);
-    } 
+    }
 }

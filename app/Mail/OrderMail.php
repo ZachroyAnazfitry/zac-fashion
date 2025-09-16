@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -12,7 +11,9 @@ use Illuminate\Queue\SerializesModels;
 class OrderMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $data;
+
     /**
      * Create a new message instance.
      *
@@ -27,7 +28,8 @@ class OrderMail extends Mailable
     // create new function
     public function build()
     {
-        $order = $this->data ;
+        $order = $this->data;
+
         return $this->from('support@zach-fashion.com')->view('mail.order', compact('order'))->subject('Email from Zach Fashion Online Website');
     }
 
