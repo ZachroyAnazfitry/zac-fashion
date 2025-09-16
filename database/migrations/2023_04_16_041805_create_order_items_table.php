@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->string('quantity')->nullable();
-            $table->float('price',8,2)->nullable();
+            $table->float('price', 8, 2)->nullable();
             $table->timestamps();
         });
     }

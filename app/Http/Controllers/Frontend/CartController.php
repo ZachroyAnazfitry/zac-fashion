@@ -8,7 +8,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+
 class CartController extends Controller
 {
     public function addToCart(Request $request, $id)
@@ -37,7 +37,6 @@ class CartController extends Controller
         //     'products' => $products,
         // ));
 
-
         // try {
         //     $products = Products::findOrFail($id);
         // } catch (ModelNotFoundException $e) {
@@ -46,7 +45,7 @@ class CartController extends Controller
 
         if (Auth::check()) {
             // for price
-            if ($products->discount_price == NULL) {
+            if ($products->discount_price == null) {
                 Cart::add([
                     'id' => $id,
                     'name' => $request->products_name,
@@ -59,7 +58,7 @@ class CartController extends Controller
                         'picture' => $products->picture,
                         'color' => $request->color,
                         'vendor_id' => $request->vendor_id,
-                    ]
+                    ],
                 ]);
 
                 return response()->json(['success' => 'Products successfully added.']);
@@ -78,7 +77,7 @@ class CartController extends Controller
                         'picture' => $products->picture,
                         'color' => $request->input('color'),
                         'vendor_id' => $request->vendor_id,
-                    ]
+                    ],
                 ]);
 
                 return response()->json(['success' => 'Products successfully added into your cart.']);
@@ -86,7 +85,7 @@ class CartController extends Controller
         } else {
             return response()->json(['error' => 'Please login first before shopping.']);
         }
-                 
+
     }
 
     public function miniCart()
@@ -96,17 +95,18 @@ class CartController extends Controller
         $cartQuantity = Cart::count();
         $cartTotal = Cart::total();
 
-        return response()->json(array(
+        return response()->json([
             'carts' => $carts,
-            'cartQuantity' => $cartQuantity, //for displaying cartCount
+            'cartQuantity' => $cartQuantity, // for displaying cartCount
             'cartTotal' => $cartTotal,  // for displaying total price
-        ));
+        ]);
     }
 
     public function cartRemove($rowId)
     {
         // call method to remove
         Cart::remove($rowId);
+
         return response()->json(['success' => 'Products successfully removed from your cart.']);
 
     }
@@ -116,27 +116,29 @@ class CartController extends Controller
         $carts = Cart::content();
         $cartQuantity = Cart::count();
         $cartTotal = Cart::total();
-        return view('homepage.mycart', compact('carts','cartQuantity', 'cartTotal'));
+
+        return view('homepage.mycart', compact('carts', 'cartQuantity', 'cartTotal'));
     }
 
     public function getCart()
     {
-         // get data
-         $carts = Cart::content();
-         $cartQuantity = Cart::count();
-         $cartTotal = Cart::total();
- 
-         return response()->json(array(
-             'carts' => $carts,
-             'cartQuantity' => $cartQuantity, //for displaying cartCount
-             'cartTotal' => $cartTotal,  // for displaying total price
-         ));
+        // get data
+        $carts = Cart::content();
+        $cartQuantity = Cart::count();
+        $cartTotal = Cart::total();
+
+        return response()->json([
+            'carts' => $carts,
+            'cartQuantity' => $cartQuantity, // for displaying cartCount
+            'cartTotal' => $cartTotal,  // for displaying total price
+        ]);
     }
 
     public function removeCart($rowId)
     {
 
         Cart::remove($rowId);
+
         // pass the variables
         return response()->json(['success' => 'Product successfully removed from your cart.']);
     }
@@ -157,14 +159,15 @@ class CartController extends Controller
             } else {
 
                 session()->flash('error', 'Need at least one product to checkout.');
+
                 return back();
 
             }
-            
+
         } else {
             session()->flash('message', 'Please login to proceed.');
         }
-        
+
         return redirect()->route('login');
     }
 
@@ -175,31 +178,28 @@ class CartController extends Controller
         $cartQuantity = Cart::count();
         $cartTotal = Cart::total();
 
-       $checkout = array();
-       $checkout['firstName'] = $request->firstName;
-       $checkout['lastName'] = $request->lastName;
-       $checkout['phone'] = $request->phone;
-       $checkout['username'] = $request->username;
-       $checkout['email'] = $request->email;
-       $checkout['address'] = $request->address;
-       $checkout['address2'] = $request->address2;
-       $checkout['country'] = $request->country;
-       $checkout['state'] = $request->state;
-       $checkout['zip'] = $request->zip;
-       $checkout['paymentMethod'] = $request->paymentMethod;
-       $cartTotal = Cart::total();
+        $checkout = [];
+        $checkout['firstName'] = $request->firstName;
+        $checkout['lastName'] = $request->lastName;
+        $checkout['phone'] = $request->phone;
+        $checkout['username'] = $request->username;
+        $checkout['email'] = $request->email;
+        $checkout['address'] = $request->address;
+        $checkout['address2'] = $request->address2;
+        $checkout['country'] = $request->country;
+        $checkout['state'] = $request->state;
+        $checkout['zip'] = $request->zip;
+        $checkout['paymentMethod'] = $request->paymentMethod;
+        $cartTotal = Cart::total();
 
-    //    condition for payment method
-    if ($request->paymentMethod == 'stripe') {
-        return view('homepage.stripePayment', compact('checkout','cartTotal'));
-    } elseif($request->paymentMethod == 'credit'){
-        return view('homepage.creditPayment', compact('checkout','cartTotal'));
-    }
-    else {
-        return view('homepage.cashPayment', compact('checkout','cartTotal','carts','cartQuantity','cartTotal'));
-    }
-
-    
+        //    condition for payment method
+        if ($request->paymentMethod == 'stripe') {
+            return view('homepage.stripePayment', compact('checkout', 'cartTotal'));
+        } elseif ($request->paymentMethod == 'credit') {
+            return view('homepage.creditPayment', compact('checkout', 'cartTotal'));
+        } else {
+            return view('homepage.cashPayment', compact('checkout', 'cartTotal', 'carts', 'cartQuantity', 'cartTotal'));
+        }
 
     }
 }

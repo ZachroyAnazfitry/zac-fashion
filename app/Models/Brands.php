@@ -11,7 +11,8 @@ class Brands extends Model
 
     protected $guarded = [];
 
-    public function products() {
+    public function products()
+    {
         return $this->hasMany(Products::class);
-    } 
+    }
 }
