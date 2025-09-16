@@ -59,7 +59,7 @@ jobs:
 
     # Check code style for compliance
     - name: Check Code Style (Pint)
-      run: php artisan pint --test
+      run: /vendor/bin/pint --test
 
     - name: Static Analysis (Larastan)
       run: vendor/bin/phpstan analyse
