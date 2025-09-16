@@ -51,7 +51,7 @@ jobs:
 
     # Install dependencies
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
     # Generate an application key
     - name: Generate key
@@ -59,7 +59,7 @@ jobs:
 
     # Check code style for compliance, artisan command not working in GitHub Actions
     - name: Check Code Style (Pint)
-      continue-on-error: true
+      # continue-on-error: true
       run: vendor/bin/pint --test
 
     - name: Static Analysis (Larastan)
