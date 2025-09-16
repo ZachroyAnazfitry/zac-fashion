@@ -60,7 +60,7 @@ jobs:
     # Check code style for compliance, artisan command not working in GitHub Actions
     - name: Check Code Style (Pint)
       continue-on-error: true
-      run: /vendor/bin/pint --test
+      run: vendor/bin/pint --test
 
     - name: Static Analysis (Larastan)
       run: vendor/bin/phpstan analyse
