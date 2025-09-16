@@ -63,6 +63,7 @@ jobs:
       run: vendor/bin/pint --test
 
     - name: Static Analysis (Larastan)
+      # temporarily allow errors to see all issues
       continue-on-error: true
       run: vendor/bin/phpstan analyse
 
