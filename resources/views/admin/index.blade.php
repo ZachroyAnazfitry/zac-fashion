@@ -11,7 +11,7 @@
           </div>
           <div class="text-end pt-1">
             <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-            <h4 class="mb-0">{{ $numberOfUsers }}</h4>
+            <h4 class="mb-0">{{ $numberOfUsers ?? '' }}</h4>
           </div>
         </div>
         <hr class="dark horizontal my-0">
@@ -28,7 +28,7 @@
           </div>
           <div class="text-end pt-1">
             <p class="text-sm mb-0 text-capitalize">Number of Vendors</p>
-            <h4 class="mb-0">{{ $numberOfVendors }}</h4>
+            <h4 class="mb-0">{{ $numberOfVendors ?? '' }}</h4>
           </div>
         </div>
         <hr class="dark horizontal my-0">
@@ -45,7 +45,7 @@
           </div>
           <div class="text-end pt-1">
             <p class="text-sm mb-0 text-capitalize">New Products</p>
-            <h4 class="mb-0">{{$products}}</h4>
+            <h4 class="mb-0">{{$products ?? ''}}</h4>
           </div>
         </div>
         <hr class="dark horizontal my-0">
@@ -62,7 +62,7 @@
           </div>
           <div class="text-end pt-1">
             <p class="text-sm mb-0 text-capitalize">Total Sales</p>
-            <h4 class="mb-0">RM {{$sales}}</h4>
+            <h4 class="mb-0">RM {{$sales ?? ''}}</h4>
           </div>
         </div>
         <hr class="dark horizontal my-0">
@@ -145,7 +145,7 @@
               <h6>Users</h6>
               <p class="text-sm mb-0">
                 <i class="fa fa-check text-info" aria-hidden="true"></i>
-                <span class="font-weight-bold ms-1">{{ $numberOfUsers}} users</span> in total
+                <span class="font-weight-bold ms-1">{{ $numberOfUsers ?? '' }} users</span> in total
               </p>
             </div>
             <div class="col-lg-6 col-5 my-auto text-end">
@@ -174,7 +174,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($users as $user)
+                {{-- @foreach ($users as $user)
 
                 <tr>
                   <td>
@@ -206,11 +206,11 @@
                       @endif
                     </div>
                   </td>
-                 
+
                 </tr>
-                    
-                @endforeach
-               
+
+                @endforeach --}}
+
                 {{-- <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
@@ -758,5 +758,5 @@
 {{-- @jquery
 @toastr_js
 @toastr_render --}}
-    
+
 @endsection

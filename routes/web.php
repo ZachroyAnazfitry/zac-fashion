@@ -51,14 +51,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/active/vendor/details/{id}', [AdminController::class, 'detailsActiveVendor'])->name('admin.details_active_vendor');
     Route::post('/admin/deactivate/vendor/{id}', [AdminController::class, 'deactivateVendor'])->name('admin.deactivate_vendor');
 
-    // Brand - calling BrandController once
+        // Brand - calling BrandController once with permission-based access
     Route::controller(BrandsController::class)->group(function () {
-        Route::get('/brands', 'brands')->name('brands');
-        Route::post('/brands/new', 'storeNewBrands')->name('brands.new');
-        Route::get('/brands/edit/{id}', 'editNewBrands')->name('brands.edit');
-        Route::put('/brands/update/{id}', 'updateNewBrands')->name('brands.update');
-        Route::get('/brands/delete/{id}', 'deleteNewBrands')->name('brands.delete');
-
+        Route::get('/brands', 'brands')->name('brands')->middleware('permission:view-brands');
+        Route::post('/brands/new', 'storeNewBrands')->name('brands.new')->middleware('permission:create-brands');
+        Route::get('/brands/edit/{id}', 'editNewBrands')->name('brands.edit')->middleware('permission:edit-brands');
+        Route::put('/brands/update/{id}', 'updateNewBrands')->name('brands.update')->middleware('permission:edit-brands');
+        Route::get('/brands/delete/{id}', 'deleteNewBrands')->name('brands.delete')->middleware('permission:delete-brands');
     });
 
     Route::controller(CategoryController::class)->group(function () {

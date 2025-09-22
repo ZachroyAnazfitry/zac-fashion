@@ -100,9 +100,9 @@ https://templatemo.com/tm-559-zay-shop
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             {{-- display Vendors from User table --}}
                             @php
