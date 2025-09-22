@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 use Spatie\Permission\Models\Permission;
 
 class PermissionServiceProvider extends ServiceProvider
@@ -33,6 +33,7 @@ class PermissionServiceProvider extends ServiceProvider
             });
         } catch (\Exception $e) {
             report($e);
+
             return false;
         }
     }

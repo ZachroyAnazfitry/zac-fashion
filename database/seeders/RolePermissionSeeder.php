@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -22,56 +22,56 @@ class RolePermissionSeeder extends Seeder
             'view-dashboard',
             'view-admin-dashboard',
             'view-vendor-dashboard',
-            
+
             // User management
             'view-users',
             'create-users',
             'edit-users',
             'delete-users',
-            
+
             // Brand management
             'view-brands',
             'create-brands',
             'edit-brands',
             'delete-brands',
-            
+
             // Category management
             'view-categories',
             'create-categories',
             'edit-categories',
             'delete-categories',
-            
+
             // Product management
             'view-products',
             'create-products',
             'edit-products',
             'delete-products',
             'view-own-products', // Vendors can only see their own products
-            
+
             // Slider management
             'view-sliders',
             'create-sliders',
             'edit-sliders',
             'delete-sliders',
-            
+
             // Order management
             'view-orders',
             'view-all-orders',
             'view-own-orders', // Vendors see their own orders
             'update-order-status',
-            
+
             // Customer management
             'view-customers',
             'edit-customers',
-            
+
             // Reports
             'view-reports',
             'view-sales-reports',
-            
+
             // Settings
             'view-settings',
             'edit-settings',
-            
+
             // Shopping features (for regular users)
             'add-to-cart',
             'view-wishlist',

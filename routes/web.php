@@ -51,7 +51,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/active/vendor/details/{id}', [AdminController::class, 'detailsActiveVendor'])->name('admin.details_active_vendor');
     Route::post('/admin/deactivate/vendor/{id}', [AdminController::class, 'deactivateVendor'])->name('admin.deactivate_vendor');
 
-        // Brand - calling BrandController once with permission-based access
+    // Brand - calling BrandController once with permission-based access
     Route::controller(BrandsController::class)->group(function () {
         Route::get('/brands', 'brands')->name('brands')->middleware('permission:view-brands');
         Route::post('/brands/new', 'storeNewBrands')->name('brands.new')->middleware('permission:create-brands');

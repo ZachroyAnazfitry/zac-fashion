@@ -37,8 +37,10 @@ class PermissionHelper
     {
         if (Auth::check()) {
             $roles = Auth::user()->getRoleNames();
+
             return $roles->first();
         }
+
         return null;
     }
 
@@ -88,8 +90,8 @@ class PermissionHelper
             }
         }
 
-        return array_filter($navigation, function($section) {
-            return !empty(array_filter($section));
+        return array_filter($navigation, function ($section) {
+            return ! empty(array_filter($section));
         });
     }
 }
