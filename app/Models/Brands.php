@@ -9,7 +9,7 @@ class Brands extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['brand_name', 'brand_slug', 'brand_image'];
 
     public function products()
     {
