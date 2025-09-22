@@ -69,9 +69,9 @@ class SliderFactory extends Factory
                 'description' => 'Adorable and comfortable clothing for your little ones. Safe and stylish.',
             ],
         ];
-        
+
         $selectedContent = $this->faker->randomElement($sliderContent);
-        
+
         return [
             'title' => $selectedContent['title'],
             'subtitle' => $selectedContent['subtitle'],

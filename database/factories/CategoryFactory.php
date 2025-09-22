@@ -39,7 +39,7 @@ class CategoryFactory extends Factory
 
             // Specialty
             'Formal Wear', 'Casual Wear', 'Work Wear', 'Party Wear',
-            'Vintage & Retro', 'Plus Size', 'Petite', 'Tall Sizes'
+            'Vintage & Retro', 'Plus Size', 'Petite', 'Tall Sizes',
         ];
 
         $categoryName = $this->faker->unique()->randomElement($realCategories);

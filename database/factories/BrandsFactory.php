@@ -24,11 +24,11 @@ class BrandsFactory extends Factory
             'Levi\'s', 'Calvin Klein', 'Tommy Hilfiger', 'Ralph Lauren', 'Gucci',
             'Louis Vuitton', 'Prada', 'Versace', 'Armani', 'Dolce & Gabbana',
             'Burberry', 'Chanel', 'Dior', 'Hermès', 'Balenciaga',
-            'Supreme', 'Off-White', 'Stone Island', 'Kenzo', 'Balmain'
+            'Supreme', 'Off-White', 'Stone Island', 'Kenzo', 'Balmain',
         ];
-        
+
         $brandName = $this->faker->unique()->randomElement($realBrands);
-        
+
         return [
             'brand_name' => $brandName,
             'brand_slug' => \Illuminate\Support\Str::slug($brandName),
