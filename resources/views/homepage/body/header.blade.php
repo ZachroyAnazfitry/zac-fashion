@@ -19,9 +19,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">Home</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="about.html">About</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link" href="shop.html">Shop</a>
                     </li>
@@ -54,7 +54,7 @@
                 {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Launch demo modal
                 </button> --}}
-                
+
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -91,7 +91,7 @@
                                 <a href="" class="text-primary text-gradient font-weight-bold">Sign up</a>
                               </p>
                             </form>
-                        
+
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
@@ -109,5 +109,5 @@
 
     </div>
 </nav>
-    
+
 @endsection
