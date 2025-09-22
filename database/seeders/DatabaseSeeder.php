@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             BrandsSeeder::class,
             CategorySeeder::class,
+            SliderSeeder::class,
         ]);
         
         // \App\Models\User::factory(10)->create();
