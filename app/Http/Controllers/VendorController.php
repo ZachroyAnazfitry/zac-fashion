@@ -3,20 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Vendor;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 
 class VendorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
     public function vendorRegister()
     {
         return view('vendor.vendor-register');
@@ -27,6 +22,7 @@ class VendorController extends Controller
         //
         return view('vendor.vendor-login');
     }
+
     public function vendorDashboard()
     {
         //
@@ -44,7 +40,6 @@ class VendorController extends Controller
         return redirect('/vendor/login')->with('message', "You've succesfully logout");
     }
 
-
     public function vendorNewRegister(Request $request)
     {
         $request->validate([
@@ -61,7 +56,7 @@ class VendorController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'role' => 'vendor',  //assign directly without admin actions
+            'role' => 'vendor',  // assign directly without admin actions
             'status' => 'inactive',
 
         ]);
@@ -75,7 +70,7 @@ class VendorController extends Controller
 
     public function vendorProfile()
     {
-        
+
         // get user id who is currently login(authenticated)
         $id = Auth::user()->id;
         // find who is login
@@ -115,20 +110,18 @@ class VendorController extends Controller
             $image = $request->file('photo');
 
             // change image name
-            $imageName = date('YMdHi').$image->getClientOriginalName(); //generate date
+            $imageName = date('YMdHi').$image->getClientOriginalName(); // generate date
             // move file
-            $image->move(public_path('upload/vendor-photo'), $imageName);  #create new folder to store uploaded images
-            $vendor['photo'] = $imageName; //add new photo to db
+            $image->move(public_path('upload/vendor-photo'), $imageName);  // create new folder to store uploaded images
+            $vendor['photo'] = $imageName; // add new photo to db
         }
 
         $vendor->save();
 
-
         return redirect()->route('vendor.profile')->with('message', 'Vendor profile updated succesfully');
     }
 
-    
-    function changePasswordProfile()
+    public function changePasswordProfile()
     {
         return view('admin.change-password');
     }
@@ -149,7 +142,7 @@ class VendorController extends Controller
             // old password
             $users = User::find(Auth::id());
 
-             // hash new password
+            // hash new password
             $users->password = bcrypt($request->new_password);
             $users->save();
 
@@ -158,16 +151,11 @@ class VendorController extends Controller
 
             // return to same page
             return redirect()->back();
-        } else{
+        } else {
             session()->flash('error', 'Old password does not match!!');
 
             // return to same page
             return redirect()->back();
         }
     }
-
-
-    
-
-  
 }

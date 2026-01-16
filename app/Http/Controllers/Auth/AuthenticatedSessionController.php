@@ -35,9 +35,10 @@ class AuthenticatedSessionController extends Controller
             $url = '/admin/dashboard';
         } elseif ($request->user()->role === 'vendor') {
             $url = '/vendor/dashboard';
-        } elseif ($request->user()->role === 'user'){
+        } elseif ($request->user()->role === 'user') {
             $url = '/customer/home';
         }
+
         return redirect()->intended($url)->with('message', "You're logged in!");
 
         // return redirect()->intended(RouteServiceProvider::HOME);

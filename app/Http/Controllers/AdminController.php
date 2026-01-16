@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Products;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Stripe\Product;
 
 class AdminController extends Controller
 {
@@ -37,13 +36,13 @@ class AdminController extends Controller
         $users = User::where('role', 'user')->latest()->get();
 
         // dd($latest_sales);
-        return view('admin.index', compact('numberOfUsers','products','sales','numberOfVendors','users'));
+        return view('admin.index', compact('numberOfUsers', 'products', 'sales', 'numberOfVendors', 'users'));
     }
 
     // for user profile setting
     public function profile()
     {
-        
+
         // get user id who is currently login(authenticated)
         $id = Auth::user()->id;
         // find who is login
@@ -81,10 +80,10 @@ class AdminController extends Controller
             $image = $request->file('photo');
 
             // change image name
-            $imageName = date('YMdHi').$image->getClientOriginalName(); //generate date
+            $imageName = date('YMdHi').$image->getClientOriginalName(); // generate date
             // move file
-            $image->move(public_path('upload/admin-photo'), $imageName);  #create new folder to store uploaded images
-            $admin['photo'] = $imageName; //add new photo to db
+            $image->move(public_path('upload/admin-photo'), $imageName);  // create new folder to store uploaded images
+            $admin['photo'] = $imageName; // add new photo to db
         }
 
         $admin->save();
@@ -93,14 +92,13 @@ class AdminController extends Controller
         // $noti = array(
         //     'message' => "Admin profile updated succesfully",
         //     'session' => 'success'
-            
+
         // );
 
         return redirect()->route('admin.profile')->with('message', 'Admin profile updated succesfully');
     }
 
-    
-    function changePasswordProfile()
+    public function changePasswordProfile()
     {
         return view('admin.change-password');
     }
@@ -121,7 +119,7 @@ class AdminController extends Controller
             // old password
             $users = User::find(Auth::id());
 
-             // hash new password
+            // hash new password
             $users->password = bcrypt($request->new_password);
             $users->save();
 
@@ -130,7 +128,7 @@ class AdminController extends Controller
 
             // return to same page
             return redirect()->back();
-        } else{
+        } else {
             session()->flash('error', 'Old password does not match!!');
 
             // return to same page
@@ -143,9 +141,7 @@ class AdminController extends Controller
         /**
          * write condition query to get vendor
          * using status,role column
-
          */
-
         $active_vendor = User::where('role', 'vendor')->latest()->get();  // to display both status
         // $active_vendor = User::where('status', 'active')->where('role', 'vendor')->latest()->get();
 
@@ -155,7 +151,7 @@ class AdminController extends Controller
         return view('admin.manage-vendor', compact('active_vendor'));
     }
 
-    public function detailsVendor( $id)
+    public function detailsVendor($id)
     {
         // $inactive_vendor = User::find($id);  // return null value if id not found
 
@@ -172,7 +168,7 @@ class AdminController extends Controller
 
         // update only status columns form inactive to active
         $inactive_vendor = User::findOrFail($id)->update([
-                       'status' => 'active',
+            'status' => 'active',
         ]);
 
         // session
@@ -182,7 +178,7 @@ class AdminController extends Controller
         return redirect('/admin/manage/vendor');
     }
 
-    public function detailsActiveVendor( $id)
+    public function detailsActiveVendor($id)
     {
         // $inactive_vendor = User::find($id);  // return null value if id not found
 
@@ -199,7 +195,7 @@ class AdminController extends Controller
 
         // update only status columns form inactive to active
         $active_vendor = User::findOrFail($id)->update([
-                       'status' => 'inactive',
+            'status' => 'inactive',
         ]);
 
         // session

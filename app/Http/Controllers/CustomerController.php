@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Gloudemans\Shoppingcart\Facades\Cart;
-
-
 
 class CustomerController extends Controller
 {
@@ -30,7 +28,7 @@ class CustomerController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('warning', "You are logged out!");
+        return redirect('/')->with('warning', 'You are logged out!');
     }
 
     public function customerRegister()
@@ -43,7 +41,8 @@ class CustomerController extends Controller
 
         $id = Auth::user()->id;
         $customers = User::find($id);
-       return view("homepage.customer-profile", compact('customers'));
+
+        return view('homepage.customer-profile', compact('customers'));
     }
 
     public function customerEditProfile(Request $request)
@@ -77,8 +76,9 @@ class CustomerController extends Controller
     {
         // trace user_id
         $order = Order::where('user_id', Auth::id())->first();
-       return view("homepage.viewOrderDetails", compact('order'));
-}
+
+        return view('homepage.viewOrderDetails', compact('order'));
+    }
 
     public function orderInvoice($order_id)
     {
@@ -88,12 +88,11 @@ class CustomerController extends Controller
         $cartTotal = Cart::total();
 
         $order = Order::with('user')->where('id', $order_id)->where('user_id', Auth::id())->first();
-        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id','DESC')->get();;
-    //    return view("homepage.orderDetails", compact('order','orderItem'));
-        
-       
+        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id', 'DESC')->get();
+        //    return view("homepage.orderDetails", compact('order','orderItem'));
 
-        $pdf = Pdf::loadView('homepage.orderInvoice', compact('order','orderItem','carts','cartQuantity','cartTotal'))->setPaper('a4');
+        $pdf = Pdf::loadView('homepage.orderInvoice', compact('order', 'orderItem', 'carts', 'cartQuantity', 'cartTotal'))->setPaper('a4');
+
         return $pdf->download('Invoice.pdf');
     }
 }

@@ -32,10 +32,14 @@ Zac Fashion is designed to provide an engaging and smooth online shopping experi
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Laravel (PHP)
-- **Database:** MySQL
-- **Frontend:** HTML, CSS, SCSS, JavaScript, Blade templating
-- **Other:** Responsive design, Admin panel
+- **Backend:** Laravel 9 (PHP 8.2+)
+- **Database:** MySQL 8.0
+- **Cache/Sessions:** Redis
+- **Frontend:** Vite, Tailwind CSS, Alpine.js, Blade templating
+- **Containerization:** Docker, Docker Compose
+- **Web Server:** Nginx (production), Caddy (development via Sail)
+- **Payment:** Stripe
+- **Other:** Responsive design, Admin panel, Multi-vendor support
 
 ---
 
@@ -53,6 +57,56 @@ Zac Fashion is designed to provide an engaging and smooth online shopping experi
 ---
 
 ## ⚙️ Setup & Installation
+
+### Option 1: Docker (Recommended)
+
+The project includes Docker configurations for both development and production environments following industry best practices.
+
+#### Development Environment (Laravel Sail)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/ZachroyAnazfitry/zac-fashion.git
+cd zac-fashion
+
+# 2. Copy .env file
+cp .env.example .env
+
+# 3. Start Docker containers
+docker compose -f compose.dev.yaml up -d
+
+# 4. Install dependencies (inside container)
+docker compose -f compose.dev.yaml exec laravel.test composer install
+docker compose -f compose.dev.yaml exec laravel.test npm install
+
+# 5. Generate application key
+docker compose -f compose.dev.yaml exec laravel.test php artisan key:generate
+
+# 6. Run migrations and seeders
+docker compose -f compose.dev.yaml exec laravel.test php artisan migrate --seed
+
+# 7. Access the application
+# Open http://localhost in your browser
+```
+
+#### Production Environment (Nginx + PHP-FPM)
+
+```bash
+# 1. Build and start production containers
+docker compose -f compose.prod.yaml up -d --build
+
+# 2. Run migrations
+docker compose -f compose.prod.yaml exec php-fpm php artisan migrate --force
+
+# 3. Optimize for production
+docker compose -f compose.prod.yaml exec php-fpm php artisan config:cache
+docker compose -f compose.prod.yaml exec php-fpm php artisan route:cache
+docker compose -f compose.prod.yaml exec php-fpm php artisan view:cache
+```
+
+📖 **For detailed Docker documentation, see [DOCKER.md](DOCKER.md)**
+
+### Option 2: Traditional Setup
 
 ```bash
 # 1. Clone the repository

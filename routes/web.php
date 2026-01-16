@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoryController;
@@ -10,8 +9,9 @@ use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\StripeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\VendorProductsController;
 use Illuminate\Support\Facades\Route;
@@ -36,32 +36,28 @@ Route::get('/dashboard', function () {
     return view('admin.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 // create middleware route, check if logged in
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard',[AdminController::class, 'adminDashboard'])->name('admin.dashboard');
-    Route::get('/admin/logout',[AdminController::class, 'destroy'])->name('admin.logout');
-    Route::get('/admin/profile', [AdminController::class,'profile'])->name('admin.profile');
+    Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+    Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::get('/admin/profile/edit', [AdminController::class, 'editProfile'])->name('admin.edit');
-    Route::post('/admin/profile/store', [AdminController::class,'storeProfile'])->name('store.profile');
-    Route::get('/admin/profile/change-password',[AdminController::class,'changePasswordProfile'])->name('change.password');
+    Route::post('/admin/profile/store', [AdminController::class, 'storeProfile'])->name('store.profile');
+    Route::get('/admin/profile/change-password', [AdminController::class, 'changePasswordProfile'])->name('change.password');
     Route::post('/admin/profile/update-password-profile', [AdminController::class, 'updatePasswordProfile'])->name('password.profile');
-    Route::get('/admin/manage/vendor',[AdminController::class, 'manageVendor'])->name('admin.manage_vendor');
-    Route::get('/admin/vendor/details/{id}',[AdminController::class, 'detailsVendor'])->name('admin.details_vendor');
-    Route::post('/admin/activate/vendor/{id}',[AdminController::class, 'activateVendor'])->name('admin.activate_vendor');
-    Route::get('/admin/active/vendor/details/{id}',[AdminController::class, 'detailsActiveVendor'])->name('admin.details_active_vendor');
-    Route::post('/admin/deactivate/vendor/{id}',[AdminController::class, 'deactivateVendor'])->name('admin.deactivate_vendor');
+    Route::get('/admin/manage/vendor', [AdminController::class, 'manageVendor'])->name('admin.manage_vendor');
+    Route::get('/admin/vendor/details/{id}', [AdminController::class, 'detailsVendor'])->name('admin.details_vendor');
+    Route::post('/admin/activate/vendor/{id}', [AdminController::class, 'activateVendor'])->name('admin.activate_vendor');
+    Route::get('/admin/active/vendor/details/{id}', [AdminController::class, 'detailsActiveVendor'])->name('admin.details_active_vendor');
+    Route::post('/admin/deactivate/vendor/{id}', [AdminController::class, 'deactivateVendor'])->name('admin.deactivate_vendor');
 
-
-    // Brand - calling BrandController once
+    // Brand - calling BrandController once with permission-based access
     Route::controller(BrandsController::class)->group(function () {
-        Route::get('/brands', 'brands')->name('brands');
-        Route::post('/brands/new', 'storeNewBrands')->name('brands.new');
-        Route::get('/brands/edit/{id}', 'editNewBrands')->name('brands.edit');
-        Route::put('/brands/update/{id}', 'updateNewBrands')->name('brands.update');
-        Route::get('/brands/delete/{id}', 'deleteNewBrands')->name('brands.delete');
-
-    
+        Route::get('/brands', 'brands')->name('brands')->middleware('permission:view-brands');
+        Route::post('/brands/new', 'storeNewBrands')->name('brands.new')->middleware('permission:create-brands');
+        Route::get('/brands/edit/{id}', 'editNewBrands')->name('brands.edit')->middleware('permission:edit-brands');
+        Route::put('/brands/update/{id}', 'updateNewBrands')->name('brands.update')->middleware('permission:edit-brands');
+        Route::get('/brands/delete/{id}', 'deleteNewBrands')->name('brands.delete')->middleware('permission:delete-brands');
     });
 
     Route::controller(CategoryController::class)->group(function () {
@@ -107,23 +103,21 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/orders/pending-confirm/{order_id}', 'pendingToConfirm')->name('orders.pending.confirm');
         Route::get('/orders/confirm-processed/{order_id}', 'confirmToProcessed')->name('orders.confirm.processed');
         Route::get('/orders/processed-delivered/{order_id}', 'processToDelivered')->name('orders.processed.delivered');
-        Route::get('/orders/invoice/{order_id}','orderInvoice')->name('orders.invoice');
+        Route::get('/orders/invoice/{order_id}', 'orderInvoice')->name('orders.invoice');
 
-        
     });
-    
+
 });
 
 // Vendor routes
 Route::middleware(['auth', 'role:vendor'])->group(function () {
     Route::get('/vendor/dashboard', [VendorController::class, 'vendorDashboard'])->name('vendor.dashboard');
-    Route::get('/vendor/logout',[VendorController::class, 'vendorLogout'])->name('vendor.logout');
-    Route::get('/vendor/profile', [VendorController::class,'vendorProfile'])->name('vendor.profile');
-    Route::get('/vendor/profile/edit', [VendorController::class,'editVendorProfile'])->name('vendor.edit');
-    Route::post('/vendor/profile/store', [VendorController::class,'storeVendorProfile'])->name('store.vendorProfile');
+    Route::get('/vendor/logout', [VendorController::class, 'vendorLogout'])->name('vendor.logout');
+    Route::get('/vendor/profile', [VendorController::class, 'vendorProfile'])->name('vendor.profile');
+    Route::get('/vendor/profile/edit', [VendorController::class, 'editVendorProfile'])->name('vendor.edit');
+    Route::post('/vendor/profile/store', [VendorController::class, 'storeVendorProfile'])->name('store.vendorProfile');
     // Route::get('/vendor/profile/change-password',[VendorController::class])->name('change.password');
     // Route::post('/vendor/profile/update-password-profile', [VendorController::class])->name('password.profile');
-
 
     // Vendor Products management
     Route::controller(VendorProductsController::class)->group(function () {
@@ -136,13 +130,13 @@ Route::middleware(['auth', 'role:vendor'])->group(function () {
         Route::get('/vendor/inactive/products/{id}', 'inactiveProducts')->name('vendor.inactive.products');
         Route::get('/vendor/active/products/{id}', 'activeProducts')->name('vendor.active.products');
         Route::get('/vendor/delete/products/{id}', 'deleteProducts')->name('vendor.delete.products');
-        
+
     });
 
     // Orders
     Route::controller(OrdersController::class)->group(function () {
         Route::get('/vendor/orders', 'showOrdersVendor')->name('vendor.orders');
-        
+
     });
 
 });
@@ -150,9 +144,9 @@ Route::middleware(['auth', 'role:vendor'])->group(function () {
 // Customer routes
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/customer/home', [CustomerController::class, 'customerPage'])->name('customer.home');
-    Route::get('/customer/logout',[CustomerController::class, 'destroy'])->name('customer.logout');
-    Route::get('/customer/profile',[CustomerController::class, 'customerProfile'])->name('customer.profile');
-    Route::put('/customer/profile/edit',[CustomerController::class, 'customerEditProfile'])->name('customer.edit');
+    Route::get('/customer/logout', [CustomerController::class, 'destroy'])->name('customer.logout');
+    Route::get('/customer/profile', [CustomerController::class, 'customerProfile'])->name('customer.profile');
+    Route::put('/customer/profile/edit', [CustomerController::class, 'customerEditProfile'])->name('customer.edit');
     Route::get('/customer/wishlist', [WishlistController::class, 'customerWishlist'])->name('customer.wishlist');
     Route::get('/get/wishlist', [WishlistController::class, 'getWishlist']);
     Route::get('/wishlist/remove/{id}', [WishlistController::class, 'removeWishlist']);
@@ -163,10 +157,10 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/checkout/store', [CartController::class, 'checkoutStore'])->name('checkout.store');
     Route::post('/checkout/stripe', [StripeController::class, 'checkoutStripe'])->name('checkout.stripe.order');
     Route::post('/checkout/cash', [StripeController::class, 'checkoutCash'])->name('checkout.cash.order');
-    Route::get('/customer/view/{id}',[CustomerController::class, 'viewOrderDetails'])->name('customer.view');
+    Route::get('/customer/view/{id}', [CustomerController::class, 'viewOrderDetails'])->name('customer.view');
 
     // invoice
-    Route::get('/customer/invoice/{order_id}',[CustomerController::class, 'orderInvoice'])->name('customer.invoice');
+    Route::get('/customer/invoice/{order_id}', [CustomerController::class, 'orderInvoice'])->name('customer.invoice');
 
 });
 
@@ -178,15 +172,11 @@ Route::post('/vendor/new/register', [VendorController::class, 'vendorNewRegister
 
 Route::get('/customer/register', [CustomerController::class, 'customerRegister'])->name('customer.register');
 
-
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 // Routes without middleware
 
@@ -205,6 +195,5 @@ Route::get('/cart/data/remove/{id}', [CartController::class, 'cartRemove']);
 
 // Wishlist routes
 Route::post('/wishlist/{product_id}', [WishlistController::class, 'wishlist']);
-
 
 require __DIR__.'/auth.php';

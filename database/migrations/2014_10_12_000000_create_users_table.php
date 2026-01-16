@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             // for different role, automatically first register as user
-            $table->enum('role',['admin','vendor','user'])->default('user');
-            $table->enum('status',['active','inactive'])->default('active');
+            $table->enum('role', ['admin', 'vendor', 'user'])->default('user');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('vendor_register_date')->nullable();
             $table->string('vendor_info')->nullable();
             $table->rememberToken();

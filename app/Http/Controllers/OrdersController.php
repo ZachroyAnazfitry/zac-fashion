@@ -4,37 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
     public function showOrders()
     {
         $orders = Order::all();
+
         return view('admin.orders.orders', compact('orders'));
     }
 
     public function showOrdersVendor()
     {
         $id = Auth::user()->id;
-        $orderItems = OrderItem::with('order')->where('vendor_id', $id)->orderBy('id','desc')->get();
+        $orderItems = OrderItem::with('order')->where('vendor_id', $id)->orderBy('id', 'desc')->get();
+
         return view('vendor.orders.orders', compact('orderItems'));
     }
 
     public function showOrdersDetails($order_id)
     {
         $order = Order::where('id', $order_id)->first();
-        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id','desc')->get();
-        return view('admin.orders.ordersDetails', compact('order','orderItem'));
+        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id', 'desc')->get();
+
+        return view('admin.orders.ordersDetails', compact('order', 'orderItem'));
     }
 
     public function pendingToConfirm($order_id)
     {
         Order::findOrFail($order_id)->update([
-            'status' => 'Confirmed'
+            'status' => 'Confirmed',
         ]);
 
         // noti
@@ -46,7 +48,7 @@ class OrdersController extends Controller
     public function confirmToProcessed($order_id)
     {
         Order::findOrFail($order_id)->update([
-            'status' => 'Processing'
+            'status' => 'Processing',
         ]);
 
         // noti
@@ -58,7 +60,7 @@ class OrdersController extends Controller
     public function processToDelivered($order_id)
     {
         Order::findOrFail($order_id)->update([
-            'status' => 'Delivered'
+            'status' => 'Delivered',
         ]);
 
         // noti
@@ -75,12 +77,11 @@ class OrdersController extends Controller
         $cartTotal = Cart::total();
 
         $order = Order::with('user')->where('id', $order_id)->first();
-        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id','DESC')->get();;
-    //    return view("homepage.orderDetails", compact('order','orderItem'));
-        
-        $pdf = Pdf::loadView('admin.orders.orderInvoice', compact('order','orderItem','carts','cartQuantity','cartTotal'))->setPaper('a4');
+        $orderItem = OrderItem::with('product')->where('order_id', $order_id)->orderBy('id', 'DESC')->get();
+        //    return view("homepage.orderDetails", compact('order','orderItem'));
+
+        $pdf = Pdf::loadView('admin.orders.orderInvoice', compact('order', 'orderItem', 'carts', 'cartQuantity', 'cartTotal'))->setPaper('a4');
+
         return $pdf->download('Orders Invoice.pdf');
     }
-
-    
 }
